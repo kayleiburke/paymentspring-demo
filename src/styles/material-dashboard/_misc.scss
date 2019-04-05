@@ -56,6 +56,16 @@ strong {
   background-size: cover;
 }
 
+.login {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.partial-transparent {
+  opacity: .95;
+}
+
 @include drawer-active-colors('primary', $brand-primary);
 @include drawer-active-colors('success', $brand-success);
 @include drawer-active-colors('danger', $brand-danger);

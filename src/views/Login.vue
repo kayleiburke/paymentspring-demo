@@ -1,9 +1,9 @@
 <template>
-  <div class="app flex-row align-items-center full-page-background">
+  <div class="login flex-row align-items-center full-page-background">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-8">
-          <div class="card-group mb-4">
+        <div class="col-md-6">
+          <div class="card-group mb-6 partial-transparent">
             <div class="card p-4">
               <div class="card-body">
                 <h1>Login</h1>
@@ -15,26 +15,26 @@
                   <div class="input-group mb-3">
                     <span class="input-group-addon"><i class="icon-user"/></span>
                     <input
-                      v-model="username"
-                      type="text"
-                      class="form-control"
-                      placeholder="Username">
+                            v-model="username"
+                            type="text"
+                            class="form-control"
+                            placeholder="Username">
                   </div>
                   <div class="input-group mb-4">
                     <span class="input-group-addon"><i class="icon-lock"/></span>
                     <input
-                      v-model="password"
-                      type="password"
-                      class="form-control"
-                      placeholder="Password">
+                            v-model="password"
+                            type="password"
+                            class="form-control"
+                            placeholder="Password">
                   </div>
                   <div
-                    v-if="error"
-                    class="alert alert-danger">{{ error }}</div>
+                          v-if="error"
+                          class="alert alert-danger">{{ error }}</div>
                   <p v-if="showProgressBar">
                     <b-progress
-                      show-progress
-                      animated>
+                            show-progress
+                            animated>
                       <b-progress-bar :value="100">
                         Please wait...
                       </b-progress-bar>
@@ -43,32 +43,18 @@
                   <div class="row">
                     <div class="col-6">
                       <button
-                        :disabled="loginDisabled"
-                        type="submit"
-                        class="btn btn-primary px-4">Login</button>
+                              :disabled="loginDisabled"
+                              type="submit"
+                              class="btn btn-primary px-4">Login</button>
                     </div>
                     <div class="col-6 text-right">
                       <a
-                        role="button"
-                        href="/forgot_password"
-                        class="btn btn-link px-0">Forgot password?</a>
+                              role="button"
+                              href="/forgot_password"
+                              class="btn btn-link px-0">Forgot password?</a>
                     </div>
                   </div>
                 </form>
-              </div>
-            </div>
-            <div
-              class="card text-white bg-primary py-5 d-md-down-none"
-              style="width:44%">
-              <div class="card-body text-center">
-                <div>
-                  <h2>Sign up</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                  <a
-                    role="button"
-                    href="/register"
-                    class="btn btn-primary active mt-3">Register Now!</a>
-                </div>
               </div>
             </div>
           </div>
