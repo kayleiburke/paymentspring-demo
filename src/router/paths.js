@@ -1,43 +1,65 @@
+// Views - Components
+import Full from '@/components/core/Full'
+
 /**
  * Define all of your application routes here
  * for more information on routes, see the
  * official documentation https://router.vuejs.org/en/
  */
-export default [
+const routes = [
   {
-    path: '/dashboard',
-    // Relative to /src/views
-    view: 'Dashboard'
+    path: '/login',
+    view: 'Login'
   },
   {
-    path: '/user-profile',
-    name: 'User Profile',
-    view: 'UserProfile'
+    path: '/logout',
+    name: 'Logout',
+    view: 'Logout'
   },
   {
-    path: '/table-list',
-    name: 'Table List',
-    view: 'TableList'
+    path: '/',
+    redirect: '/dashboard',
+    view: 'Full',
+    children: [
+      {
+        path: '/dashboard',
+        // Relative to /src/views
+        view: 'Dashboard'
+      },
+      {
+        path: '/user-profile',
+        name: 'User Profile',
+        view: 'UserProfile'
+      },
+      {
+        path: '/table-list',
+        name: 'Table List',
+        view: 'TableList'
+      },
+      {
+        path: '/typography',
+        view: 'Typography'
+      },
+      {
+        path: '/icons',
+        view: 'Icons'
+      },
+      {
+        path: '/maps',
+        view: 'Maps'
+      },
+      {
+        path: '/notifications',
+        view: 'Notifications'
+      },
+      {
+        path: '/upgrade',
+        name: 'Upgrade to PRO',
+        view: 'Upgrade'
+      }
+    ]
   },
-  {
-    path: '/typography',
-    view: 'Typography'
-  },
-  {
-    path: '/icons',
-    view: 'Icons'
-  },
-  {
-    path: '/maps',
-    view: 'Maps'
-  },
-  {
-    path: '/notifications',
-    view: 'Notifications'
-  },
-  {
-    path: '/upgrade',
-    name: 'Upgrade to PRO',
-    view: 'Upgrade'
-  }
+  { path: '*', redirect: '/dashboard' }
 ]
+
+export default routes

@@ -47,6 +47,15 @@ strong {
   height: auto;
 }
 
+.full-page-background {
+  background-image: url('https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-4.3b7e38ed.jpg');
+  height: 100%;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 @include drawer-active-colors('primary', $brand-primary);
 @include drawer-active-colors('success', $brand-success);
 @include drawer-active-colors('danger', $brand-danger);
