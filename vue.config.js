@@ -3,3 +3,6 @@ module.exports = {
     disableHostCheck: true
   }
 }
+const vueConfig = {
+  runtimeCompiler: true
+}

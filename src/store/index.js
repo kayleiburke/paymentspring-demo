@@ -16,6 +16,7 @@ import getters from './getters'
 import modules from './modules'
 import mutations from './mutations'
 import state from './state'
+import { createFlashStore } from 'vuex-flash'
 
 Vue.use(Vuex)
 
@@ -25,7 +26,10 @@ const store = new Vuex.Store({
   getters,
   modules,
   mutations,
-  state
+  state,
+  plugins: [
+    createFlashStore()
+  ]
 })
 
 export default store

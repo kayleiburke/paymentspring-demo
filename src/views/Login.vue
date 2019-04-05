@@ -146,7 +146,7 @@ export default {
 
       this.loginDisabled = false
       this.showProgressBar = false
-      this.$store.dispatch('logout')
+      this.$store.dispatch('auth/logout')
       delete localStorage.token
     }
   }

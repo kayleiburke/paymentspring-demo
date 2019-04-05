@@ -1,3 +1,3 @@
-import './axios'
+import './bootstrap-vue'
 import './chartist'
 import './vuetify'
