@@ -64,15 +64,9 @@
   </div>
 </template>
 
-<!--<script>
-export default {
-  name: 'Login'
-}
-</script>-->
-
 <script>
 import { mapGetters } from 'vuex'
-const LOGIN_URL = ''
+const LOGIN_URL = '/users/sign_in'
 
 export default {
   name: 'Login',
@@ -115,26 +109,24 @@ export default {
     loginSuccessful (req) {
       this.showProgressBar = false
 
-      if (!req.data.status.token) {
+      if (!req.data.authentication_token) {
         this.loginFailed(req)
         return
       }
       this.error = false
-      localStorage.token = req.data.status.token
+      localStorage.token = req.data.authentication_token
       // TODO: store more information about user, such as permissions and roles
       localStorage.userInfo = JSON.stringify({
-        id: req.data.status.id,
-        firstName: req.data.status.first_name,
-        lastName: req.data.status.last_name
+        email: req.data.email
       })
-      this.$store.dispatch('login')
+      this.$store.dispatch('auth/login')
 
       this.$router.replace(this.$route.query.redirect || '/')
     },
     loginFailed (error) {
-      if (error.response && error.response.data) {
-        this.error = 'Login failed!'
+      this.error = 'Login failed!'
 
+      if (error.response && error.response.data) {
         if (error.response.data.errors) {
           this.error = error.response.data.errors
         } else {

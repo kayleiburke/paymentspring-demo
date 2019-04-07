@@ -10,7 +10,7 @@
 
             delete localStorage.token
             delete localStorage.userInfo
-            this.$store.dispatch('logout')
+            this.$store.dispatch('auth/logout')
 
             this.$router.push('/login')
         }
