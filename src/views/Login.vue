@@ -1,67 +1,79 @@
 <template>
-  <div class="login flex-row align-items-center full-page-background">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <div class="card-group mb-6 partial-transparent">
-            <div class="card p-4">
-              <div class="card-body">
+  <v-app>
+    <div class="full-page-background">
+      <v-container
+              fill-height
+              fluid
+              grid-list-xs>
+        <v-layout
+                justify-center
+                align-center
+                wrap
+        >
+          <v-flex
+                  xs12
+                  md4
+          >
+            <material-card class="v-card-profile partial-transparent">
+              <v-card-text class="text-center">
                 <h1>Login</h1>
                 <p class="text-muted">Sign In to your account</p>
                 <flash-message variant="success"/>
                 <flash-message variant="danger"/>
                 <flash-message variant="warning"/>
-                <form @submit.prevent="login()">
-                  <div class="input-group mb-3">
-                    <span class="input-group-addon"><i class="icon-user"/></span>
-                    <input
-                            v-model="username"
-                            type="text"
-                            class="form-control"
-                            placeholder="Username">
-                  </div>
-                  <div class="input-group mb-4">
-                    <span class="input-group-addon"><i class="icon-lock"/></span>
-                    <input
-                            v-model="password"
-                            type="password"
-                            class="form-control"
-                            placeholder="Password">
-                  </div>
-                  <div
-                          v-if="error"
-                          class="alert alert-danger">{{ error }}</div>
-                  <p v-if="showProgressBar">
-                    <b-progress
-                            show-progress
-                            animated>
-                      <b-progress-bar :value="100">
-                        Please wait...
-                      </b-progress-bar>
-                    </b-progress>
-                  </p>
-                  <div class="row">
-                    <div class="col-6">
-                      <button
-                              :disabled="loginDisabled"
-                              type="submit"
-                              class="btn btn-primary px-4">Login</button>
-                    </div>
-                    <div class="col-6 text-right">
-                      <a
-                              role="button"
-                              href="/forgot_password"
-                              class="btn btn-link px-0">Forgot password?</a>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                <v-form @submit.prevent="login()">
+                  <v-container py-0>
+                    <v-layout wrap>
+                      <v-flex xs12>
+                        <v-text-field
+                                class="purple-input"
+                                label="Username"
+                                v-model="username"
+                        />
+                      </v-flex>
+                      <v-flex xs12>
+                        <v-text-field
+                                class="purple-input"
+                                label="Password"
+                                v-model="password"
+                                type="password"
+                        />
+                      </v-flex>
+                      <v-flex sm12 v-if="error">
+                        <material-notification
+                                class="mb-3"
+                                color="error"
+                        >
+                          {{error}}
+                        </material-notification>
+                      </v-flex>
+                      <v-flex sm12 v-if="showProgressBar">
+                        <v-progress-circular
+                                :size="50"
+                                color="primary"
+                                indeterminate
+                        ></v-progress-circular>
+                      </v-flex>
+                      <v-flex
+                              sm12>
+                        <v-btn
+                                color="success"
+                                round
+                                class="font-weight-light"
+                                :disabled="loginDisabled"
+                                type="submit"
+                        >Login</v-btn>
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
+                </v-form>
+              </v-card-text>
+            </material-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
     </div>
-  </div>
+  </v-app>
 </template>
 
 <script>

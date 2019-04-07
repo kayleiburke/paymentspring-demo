@@ -4,8 +4,9 @@
     export default {
         name: 'Logout',
         created () {
-            var headers = {'Authorization': 'Token ' + localStorage.token}
-            this.$http.post('/authorize/logout', {}, { headers: headers })
+            console.log(localStorage.token)
+            var headers = {'Authorization': 'Token token=' + localStorage.token}
+            this.$http.delete('/users/sign_out', { headers: headers })
                 .catch()
 
             delete localStorage.token
