@@ -19,12 +19,11 @@
       &copy;
       {{ (new Date()).getFullYear() }}
       <a
-        href="https://www.creative-tim.com/"
-        target="_blank">Creative Tim</a>, made with
-      <v-icon
-        color="tertiary"
-        size="17">mdi-heart</v-icon>
-      for a better web
+        href="https://github.com/kayleiburke"
+        target="_blank">Kaylei Burke</a>, made with
+      <a
+              href="https://www.creative-tim.com/product/vuetify-material-dashboard"
+              target="_blank">Vuetify Material Dashboard</a>
     </span>
   </v-footer>
 </template>
@@ -32,12 +31,7 @@
 <script>
 export default {
   data: () => ({
-    links: [
-      { name: 'Home', Link: '/dashboard' },
-      { name: 'Creative Tim', Link: 'https://www.creative-tim.com' },
-      { name: 'About Us', Link: 'https://creative-tim.com/presentation' },
-      { name: 'Blog', Link: 'https://blog.creative-tim.com' }
-    ]
+    links: []
   })
 }
 </script>

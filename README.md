@@ -8,7 +8,7 @@ The live demo site can be accessed at: https://payment-spring-gateway-portal.her
 - **Password:** \*paymentspring*
 
 ## Credits
-Built using the [Vuetify Material Dashboard](https://www.creative-tim.com/vuetify-material-dashboard) theme
+Built using the [Vuetify Material Dashboard](https://www.creative-tim.com/product/vuetify-material-dashboard) theme
 
 ## Getting Started
 - Install Nodejs from [Nodejs Official Page](https://nodejs.org/en/)
