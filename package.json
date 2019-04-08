@@ -10,18 +10,22 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "card": "^2.4.0",
     "chartist": "0.11.0",
     "connect-history-api-fallback": "^1.6.0",
     "express": "^4.16.4",
     "jquery": "^3.3.1",
     "node-sass": "^4.9.3",
+    "payment": "^2.3.0",
     "sass-loader": "^7.1.0",
     "vue": "^2.5.17",
     "vue-axios": "^2.1.4",
     "vue-chartist": "^2.1.2",
     "vue-cli": "^2.9.6",
+    "vue-credit-card": "0.0.11",
     "vue-meta": "^1.5.2",
     "vuetify": "^1.2.5",
+    "vuetify-credit-card": "^1.0.0",
     "vuex-flash": "^1.0.0"
   },
   "devDependencies": {

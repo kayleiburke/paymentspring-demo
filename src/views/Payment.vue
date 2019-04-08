@@ -47,13 +47,16 @@
 
               <v-stepper-content step="2">
                 <v-form ref="form2" v-model="formsValid.form2">
-                  <helper-currency-field
-                          label='Amount'
-                          v-model="amount"
-                          :rules="[rules.required, amount > 0 || 'Must be greater than 0']"
-                  ></helper-currency-field>
+                  <v-radio-group v-model="paymentMethod">
+                    <v-radio
+                            v-for="n in paymentMethods"
+                            :key="n"
+                            :label="`${n}`"
+                            :value="n"
+                    ></v-radio>
+                  </v-radio-group>
 
-                  <v-text-field label="Description" v-model="description" required></v-text-field>
+                  <helper-credit-card-form :updateData="updateData"></helper-credit-card-form>
 
                   <v-btn flat color="primary" @click.native="step = 1">Previous</v-btn>
                   <v-btn color="primary" @click="incrementStep(step)">
@@ -88,16 +91,28 @@
 </template>
 
 <script>
+
 export default {
   data: () => ({
     error: '',
     step: 1,
     amount: null,
     description: null,
+    paymentMethod: 'Credit Card',
+    paymentMethods: [
+      'Credit Card',
+      'Bank Account'
+    ],
     formsValid: {
       form1: false,
       form2: false,
       form3: false
+    },
+    cardDetail: {
+      number: '4532117080573700',
+      name: 'Comprador T Cielo',
+      expiry: '12/2018',
+      cvc: '123'
     },
     registration:{
       amount:null,
@@ -121,6 +136,10 @@ export default {
       if (this.formsValid['form' + step]) {
         this.step = this.step + 1
       }
+    },
+
+    updateData(data) {
+      console.log(data)
     }
   }
 }
