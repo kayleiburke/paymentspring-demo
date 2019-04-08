@@ -25,6 +25,7 @@ import TableList from '@/views/TableList'
 import Typography from '@/views/Typography'
 import Upgrade from '@/views/Upgrade'
 import UserProfile from '@/views/UserProfile'
+import Payment from '@/views/Payment'
 
 Vue.use(Router)
 Vue.use(VuexFlash, { mixin: true })
@@ -51,6 +52,11 @@ const router = new Router({
           path: 'dashboard',
           // Relative to /src/views
           component: Dashboard
+        },
+        {
+          path: '/payment',
+          name: 'Make a Payment',
+          component: Payment
         },
         {
           path: '/user-profile',

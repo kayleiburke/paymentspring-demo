@@ -79,6 +79,11 @@ export default {
         text: 'Dashboard'
       },
       {
+        to: '/payment',
+        icon: 'mdi-currency-usd',
+        text: 'Make Payment'
+      },
+      {
         to: '/user-profile',
         icon: 'mdi-account',
         text: 'User Profile'
