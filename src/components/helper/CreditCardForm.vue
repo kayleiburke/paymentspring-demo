@@ -11,7 +11,6 @@
 
         <v-flex xs6>
             <v-text-field
-                    @input="onChange"
                     :error="!isValid('number')"
                     name="number"
                     placeholder="Card number"
@@ -22,7 +21,6 @@
         </v-flex>
         <v-flex xs6>
             <v-text-field
-                    @input="onChange"
                     :error="!isValid('name')"
                     name="name"
                     placeholder="Full name"
@@ -33,7 +31,6 @@
         </v-flex>
         <v-flex xs6>
             <v-text-field
-                    @input="onChange"
                     :error="!isValid('expiry')"
                     name="expiry"
                     placeholder="MM/YY"
@@ -49,7 +46,6 @@
                     <div class="v-input__slot">
                         <div class="v-text-field__slot">
                             <input
-                                    @input="onChange"
                                     :error="!isValid('cvc')"
                                     name="cvc"
                                     type="number"
@@ -75,7 +71,25 @@
             updateData: {
                 type: Function,
                 required: true
+            },
+            setIsFormValid: {
+                type: Function,
+                required: true
             }
+        },
+        mounted () {
+            // watchers must be added to the $refs object because 'jp-card-valid' is not set instantaneously after updates
+            // are made to the associated fields
+            Object.keys(this.cardDetail).forEach(function (key) {
+                this.$watch(
+                    () => {
+                        return this.$refs.creditCard.classDisplay[key]['jp-card-valid']
+                    },
+                    (val) => {
+                        this.onChange()
+                    }
+                )
+            }.bind(this))
         },
         data () {
             return {
@@ -87,12 +101,10 @@
                 }
             }
         },
-
         methods: {
             onChange() {
-                if (this.isFormValid()) {
-                    this.updateData(this.cardDetail)
-                }
+                this.updateData(this.cardDetail)
+                this.setIsFormValid(this.isFormValid())
             },
 
             isFormValid() {

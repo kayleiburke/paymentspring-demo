@@ -56,7 +56,13 @@
                     ></v-radio>
                   </v-radio-group>
 
-                  <helper-credit-card-form :updateData="updateData"></helper-credit-card-form>
+                  <helper-credit-card-form
+                          v-show="paymentMethod == 'Credit Card'"
+                          :updateData="updateCreditCardData"
+                          :setIsFormValid="setIsCreditCardFormValid">
+                  </helper-credit-card-form>
+
+                  <material-error-notification v-if="formErrors.form2" :error="formErrors.form2"></material-error-notification>
 
                   <v-btn flat color="primary" @click.native="step = 1">Previous</v-btn>
                   <v-btn color="primary" @click="incrementStep(step)">
@@ -91,6 +97,7 @@
 </template>
 
 <script>
+import {_} from 'vue-underscore'
 
 export default {
   data: () => ({
@@ -107,6 +114,11 @@ export default {
       form1: false,
       form2: false,
       form3: false
+    },
+    formErrors: {
+      form1: null,
+      form2: null,
+      form3: null
     },
     cardDetail: {
       number: '4532117080573700',
@@ -132,14 +144,25 @@ export default {
   methods:{
     incrementStep(step) {
       this.$refs['form' + step].validate()
+      this.formErrors['form' + step] = null
 
       if (this.formsValid['form' + step]) {
         this.step = this.step + 1
+      } else {
+        this.formErrors['form' + step] = 'Please enter valid data before continuing'
       }
     },
 
-    updateData(data) {
-      console.log(data)
+    updateCreditCardData(data) {
+      this.cardDetail = _.clone(data)
+    },
+
+    setIsCreditCardFormValid(isValid) {
+      this.formsValid.form2 = isValid
+
+      if (isValid) {
+        this.formErrors.form2 = null
+      }
     }
   }
 }
