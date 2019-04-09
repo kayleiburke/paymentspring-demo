@@ -81,7 +81,7 @@ export default {
       {
         to: '/payment',
         icon: 'mdi-currency-usd',
-        text: 'Make Payment'
+        text: 'Make a Donation'
       },
       {
         to: '/user-profile',

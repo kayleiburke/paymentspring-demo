@@ -7,6 +7,17 @@
       justify-center
       wrap
     >
+      <v-flex xs12>
+        <h3>[This page is a work in progress...]</h3>
+      </v-flex>
+      <v-flex xs12>
+        <h3 class="display-3">Make a Donation</h3>
+
+        <span class="subheading">
+          Please fill out the form below to simulate making a donation.  Please note that this is for demo purposes only, and no credit cards or bank accounts will be charged.  When the payment form is submitted, a payment will be simulated through <a href="https://www.paymentspring.com">PaymentSpring</a> using a test credit card or bank account.
+            </span>
+        <v-divider class="my-3"></v-divider>
+      </v-flex>
       <v-flex
         xs12
       >
@@ -31,13 +42,16 @@
             <v-stepper-items>
               <v-stepper-content step="1">
                 <v-form ref="form1" v-model="formsValid.form1">
-                  <helper-currency-field
-                          label='Amount'
-                          v-model="amount"
-                          :rules="[rules.required, amount > 0 || 'Must be greater than 0']"
-                  ></helper-currency-field>
-
-                  <v-text-field label="Description" v-model="description" required></v-text-field>
+                  <v-flex xs3>
+                    <helper-currency-field
+                            label='Amount'
+                            v-model="amount"
+                            :rules="[rules.required, amount > 0 || 'Must be greater than 0']"
+                    ></helper-currency-field>
+                  </v-flex>
+                  <v-flex xs12>
+                    <v-text-field label="Description" v-model="description" required></v-text-field>
+                  </v-flex>
 
                   <v-btn color="primary" @click="incrementStep(step)">
                     Continue
@@ -53,6 +67,7 @@
                             :key="n"
                             :label="`${n}`"
                             :value="n"
+                            @change="onChangePaymentMethod"
                     ></v-radio>
                   </v-radio-group>
 
@@ -151,6 +166,10 @@ export default {
       } else {
         this.formErrors['form' + step] = 'Please enter valid data before continuing'
       }
+    },
+
+    onChangePaymentMethod() {
+      this.formErrors.form2 = null
     },
 
     updateCreditCardData(data) {

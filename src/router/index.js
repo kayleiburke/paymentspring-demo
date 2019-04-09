@@ -55,7 +55,7 @@ const router = new Router({
         },
         {
           path: '/payment',
-          name: 'Make a Payment',
+          name: 'Make a Donation',
           component: Payment
         },
         {
