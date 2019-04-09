@@ -87,7 +87,7 @@ export default {
         to: '/user-profile',
         icon: 'mdi-account',
         text: 'User Profile'
-      },
+      }/*,
       {
         to: '/table-list',
         icon: 'mdi-clipboard-outline',
@@ -112,7 +112,7 @@ export default {
         to: '/notifications',
         icon: 'mdi-bell',
         text: 'Notifications'
-      }
+      }*/
     ],
     responsive: false
   }),
