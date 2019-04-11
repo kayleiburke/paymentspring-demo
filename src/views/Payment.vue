@@ -118,10 +118,21 @@
                   </v-flex>
                 </v-form>
 
+                <v-flex sm12 v-if="showProgressBar">
+                  <v-progress-circular
+                          :size="50"
+                          color="primary"
+                          indeterminate
+                  ></v-progress-circular>
+                </v-flex>
                 <material-error-notification v-if="formErrors.form3" :error="formErrors.form3"></material-error-notification>
+                <material-error-notification v-if="paymentFailed" :error="paymentErrorMessage"></material-error-notification>
+                <material-notification color="info" v-if="paymentSuccessful">
+                  Payment successful
+                </material-notification>
 
                 <v-btn flat color="primary" @click.native="step = 2">Previous</v-btn>
-                <v-btn color="primary" @click="submitPayment">
+                <v-btn color="primary" :disabled="showProgressBar" @click="submitPayment">
                   Submit Payment
                 </v-btn>
 
@@ -154,6 +165,10 @@ export default {
     totalSteps: 3,
     amount: null,
     description: null,
+    paymentSuccessful: false,
+    paymentFailed: false,
+    paymentErrorMessage: null,
+    showProgressBar: false,
     paymentMethod: 'Credit Card',
     paymentMethods: [
       'Credit Card',
@@ -224,6 +239,10 @@ export default {
     },
 
     submitPayment() {
+      this.paymentSuccessful = false
+      this.paymentFailed = false
+      this.paymentErrorMessage = null
+
       this.incrementStep(3)
       if (this.formsValid.form3) {
         this.getPaymentSpringToken()
@@ -231,6 +250,8 @@ export default {
     },
 
     getPaymentSpringToken() {
+      this.showProgressBar = true
+
       var paymentData = {
         address1: this.billingInfo.addressLine1,
         address2: this.billingInfo.addressLine2,
@@ -263,10 +284,9 @@ export default {
     },
 
     callbackFunction(response) {
-      console.log(this.amount)
       var params = {
         token: response.id,
-        amount: this.amount,
+        amount: this.amount * 100,
         send_receipt: false
       }
 
@@ -275,9 +295,17 @@ export default {
       }
       axios.post("https://api.paymentspring.com/api/v1/charge", params, { headers: headers })
           .then(function (response) {
-              console.log(response)
+              this.showProgressBar = false
+              if (response.data.successful) {
+                this.paymentSuccessful = true
+              } else if (response.data.error_message) {
+                this.paymentFailed = true
+                this.paymentErrorMessage = response.data.error_message
+              }
           }.bind(this)).catch(function (error) {
-              console.log(error)
+              this.showProgressBar = false
+              this.paymentFailed = true
+              this.paymentErrorMessage = 'An error has occurred, please try again later.'
           }.bind(this))
     },
 
