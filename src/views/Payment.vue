@@ -46,6 +46,9 @@
                     <v-layout
                             wrap
                     >
+                      <v-flex xs12 md12 class="hidden-lg-and-up">
+                        <h4>Amount</h4>
+                      </v-flex>
                       <v-flex xs12 md3>
                         <helper-currency-field
                                 label='Amount'
@@ -67,6 +70,9 @@
 
               <v-stepper-content step="2">
                 <v-form ref="form2" v-model="formsValid.form2">
+                  <v-flex xs12 md12 class="hidden-lg-and-up">
+                    <h4>Payment Method</h4>
+                  </v-flex>
                   <v-radio-group v-model="paymentMethod">
                     <v-radio
                             v-for="n in paymentMethods"
@@ -102,18 +108,23 @@
               </v-stepper-content>
 
               <v-stepper-content step="3">
-                <v-flex>
-                  <helper-billing-info-form
-                          ref="billingInfoForm"
-                          :updateData="updateBillingInfoData"
-                          :setIsFormValid="setIsForm3Valid">
-                  </helper-billing-info-form>
-                </v-flex>
+                <v-form ref="form3" v-model="formsValid.form3">
+                  <v-flex>
+                    <v-flex xs12 md12 class="hidden-lg-and-up">
+                      <h4>Billing Info</h4>
+                    </v-flex>
+                    <helper-billing-info-form
+                            ref="billingInfoForm"
+                            :updateData="updateBillingInfoData"
+                            :setIsFormValid="setIsForm3Valid">
+                    </helper-billing-info-form>
+                  </v-flex>
+                </v-form>
 
                 <material-error-notification v-if="formErrors.form3" :error="formErrors.form3"></material-error-notification>
 
                 <v-btn flat color="primary" @click.native="step = 2">Previous</v-btn>
-                <v-btn color="primary" @click="">
+                <v-btn color="primary" @click="submitPayment">
                   Submit Payment
                 </v-btn>
 
@@ -130,11 +141,19 @@
 
 <script>
 import {_} from 'vue-underscore'
+import { mapGetters } from 'vuex'
 
 export default {
+  computed: {
+    ...mapGetters({ currentUser: 'currentUser' })
+  },
+  mounted() {
+    this.$http.defaults.headers.common['X-User-Token'] = localStorage.token
+  },
   data: () => ({
     error: '',
     step: 1,
+    totalSteps: 3,
     amount: null,
     description: null,
     paymentMethod: 'Credit Card',
@@ -152,7 +171,7 @@ export default {
       form2: null,
       form3: null
     },
-    bankAccount: {
+    bankDetail: {
       accountNumber: '',
       routingNumber: '',
       firstName: '',
@@ -193,7 +212,9 @@ export default {
       this.formErrors['form' + step] = null
 
       if (this.formsValid['form' + step]) {
-        this.step = this.step + 1
+        if (this.step < this.totalSteps) {
+          this.step = this.step + 1
+        }
       } else {
         this.formErrors['form' + step] = 'Please enter valid data before continuing'
       }
@@ -204,12 +225,32 @@ export default {
       this.formsValid.form2 = this.$refs[this.toCamelCase(paymentMethod) + 'Form'].isFormValid()
     },
 
+    submitPayment() {
+      this.incrementStep(3)
+      if (this.formsValid.form3) {
+        this.$http.defaults.headers.common['X-User-Email'] = this.currentUser.email
+
+        params = {
+          amount: this.amount,
+          description: this.description,
+          bankAccountInfo: this.bankDetail,
+          creditCardInfo: this.cardDetail
+        }
+
+        this.$http.post('/payments', params).then(function (response) {
+          console.log(response)
+        }.bind(this)).catch(function (error) {
+          console.log(response)
+        }.bind(this))
+      }
+    },
+
     updateCreditCardData(data) {
       this.cardDetail = _.clone(data)
     },
 
     updateBankAccountData(data) {
-      this.bankAccount = _.clone(data)
+      this.bankDetail = _.clone(data)
     },
 
     updateBillingInfoData(data) {

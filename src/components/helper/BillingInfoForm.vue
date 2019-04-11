@@ -11,7 +11,7 @@
                             type="text"
                             @input="onChange"
                             v-model="billingInfo.addressLine1"
-                            :rules="[rules.required, rules.accountNumber]">
+                            :rules="[rules.required, rules.notEmpty]">
                     </v-text-field>
                 </v-flex>
                 <v-flex xs12 md6>
@@ -21,7 +21,7 @@
                             type="text"
                             @input="onChange"
                             v-model="billingInfo.addressLine2"
-                            :rules="[rules.required, rules.routingNumber]">
+                            :rules="[rules.required, rules.notEmpty]">
                     </v-text-field>
                 </v-flex>
                 <v-flex xs12 md5>
