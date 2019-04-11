@@ -102,17 +102,19 @@
               </v-stepper-content>
 
               <v-stepper-content step="3">
-                <v-card
-                        class="mb-5"
-                        color="grey lighten-1"
-                        height="200px"
-                ></v-card>
+                <v-flex>
+                  <helper-billing-info-form
+                          ref="billingInfoForm"
+                          :updateData="updateBillingInfoData"
+                          :setIsFormValid="setIsForm3Valid">
+                  </helper-billing-info-form>
+                </v-flex>
 
-                <material-error-notification :error="error"></material-error-notification>
+                <material-error-notification v-if="formErrors.form3" :error="formErrors.form3"></material-error-notification>
 
                 <v-btn flat color="primary" @click.native="step = 2">Previous</v-btn>
-                <v-btn color="primary" @click="step = 1">
-                  Continue
+                <v-btn color="primary" @click="">
+                  Submit Payment
                 </v-btn>
 
                 <v-btn flat>Cancel</v-btn>
@@ -163,6 +165,13 @@ export default {
       expiry: '12/2018',
       cvc: '123'
     },
+    billingInfo: {
+      addressLine1: '',
+      addressLine2: '',
+      city: '',
+      state: '',
+      zip: ''
+    },
     registration:{
       amount:null,
       name:null,
@@ -203,11 +212,23 @@ export default {
       this.bankAccount = _.clone(data)
     },
 
+    updateBillingInfoData(data) {
+      this.billingInfo = _.clone(data)
+    },
+
     setIsForm2Valid(isValid) {
       this.formsValid.form2 = isValid
 
       if (isValid) {
         this.formErrors.form2 = null
+      }
+    },
+
+    setIsForm3Valid(isValid) {
+      this.formsValid.form3 = isValid
+
+      if (isValid) {
+        this.formErrors.form3 = null
       }
     },
 
