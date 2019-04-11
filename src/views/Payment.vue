@@ -71,11 +71,20 @@
                     ></v-radio>
                   </v-radio-group>
 
-                  <helper-credit-card-form
-                          v-show="paymentMethod == 'Credit Card'"
-                          :updateData="updateCreditCardData"
-                          :setIsFormValid="setIsCreditCardFormValid">
-                  </helper-credit-card-form>
+                  <v-flex>
+                      <helper-credit-card-form
+                              ref="creditCardForm"
+                              v-show="paymentMethod == 'Credit Card'"
+                              :updateData="updateCreditCardData"
+                              :setIsFormValid="setIsForm2Valid">
+                      </helper-credit-card-form>
+                      <helper-bank-account-form
+                              ref="bankAccountForm"
+                              v-show="paymentMethod == 'Bank Account'"
+                              :updateData="updateBankAccountData"
+                              :setIsFormValid="setIsForm2Valid">
+                      </helper-bank-account-form>
+                  </v-flex>
 
                   <material-error-notification v-if="formErrors.form2" :error="formErrors.form2"></material-error-notification>
 
@@ -135,6 +144,13 @@ export default {
       form2: null,
       form3: null
     },
+    bankAccount: {
+      accountNumber: '',
+      routingNumber: '',
+      firstName: '',
+      lastName: '',
+      accountType: null
+    },
     cardDetail: {
       number: '4532117080573700',
       name: 'Comprador T Cielo',
@@ -168,20 +184,32 @@ export default {
       }
     },
 
-    onChangePaymentMethod() {
+    onChangePaymentMethod(paymentMethod) {
       this.formErrors.form2 = null
+      this.formsValid.form2 = this.$refs[this.toCamelCase(paymentMethod) + 'Form'].isFormValid()
     },
 
     updateCreditCardData(data) {
       this.cardDetail = _.clone(data)
     },
 
-    setIsCreditCardFormValid(isValid) {
+    updateBankAccountData(data) {
+      this.bankAccount = _.clone(data)
+    },
+
+    setIsForm2Valid(isValid) {
       this.formsValid.form2 = isValid
 
       if (isValid) {
         this.formErrors.form2 = null
       }
+    },
+
+    toCamelCase(str) {
+      return str
+              .replace(/\s(.)/g, function($1) { return $1.toUpperCase(); })
+              .replace(/\s/g, '')
+              .replace(/^(.)/, function($1) { return $1.toLowerCase(); });
     }
   }
 }
