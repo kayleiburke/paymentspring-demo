@@ -4,12 +4,13 @@
     export default {
         name: 'Logout',
         created () {
-            console.log(localStorage.token)
             var headers = {'Authorization': 'Token token=' + localStorage.token}
             this.$http.delete('/users/sign_out', { headers: headers })
                 .catch()
 
             delete localStorage.token
+            delete localStorage.paymentspringApiKey
+            delete localStorage.paymentspringPrivateApiKey
             delete localStorage.userInfo
             this.$store.dispatch('auth/logout')
 

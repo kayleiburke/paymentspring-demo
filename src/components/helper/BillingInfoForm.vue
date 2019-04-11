@@ -20,8 +20,7 @@
                             placeholder="Address line 2"
                             type="text"
                             @input="onChange"
-                            v-model="billingInfo.addressLine2"
-                            :rules="[rules.required, rules.notEmpty]">
+                            v-model="billingInfo.addressLine2">
                     </v-text-field>
                 </v-flex>
                 <v-flex xs12 md5>

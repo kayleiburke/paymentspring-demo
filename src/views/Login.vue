@@ -127,6 +127,8 @@ export default {
       }
       this.error = false
       localStorage.token = req.data.authentication_token
+      localStorage.paymentspringApiKey = req.data.paymentspring_api_key
+      localStorage.paymentspringPrivateApiKey = req.data.paymentspring_private_api_key
       // TODO: store more information about user, such as permissions and roles
       localStorage.userInfo = JSON.stringify({
         email: req.data.email

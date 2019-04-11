@@ -8,9 +8,6 @@
       wrap
     >
       <v-flex xs12>
-        <h3>[This page is a work in progress...]</h3>
-      </v-flex>
-      <v-flex xs12>
         <h3 class="display-3">Make a Donation</h3>
 
         <span class="subheading">
@@ -142,10 +139,11 @@
 <script>
 import {_} from 'vue-underscore'
 import { mapGetters } from 'vuex'
+import axios from 'axios'
 
 export default {
   computed: {
-    ...mapGetters({ currentUser: 'currentUser' })
+    ...mapGetters({ currentUser: 'auth/currentUser' })
   },
   mounted() {
     this.$http.defaults.headers.common['X-User-Token'] = localStorage.token
@@ -228,21 +226,59 @@ export default {
     submitPayment() {
       this.incrementStep(3)
       if (this.formsValid.form3) {
-        this.$http.defaults.headers.common['X-User-Email'] = this.currentUser.email
-
-        params = {
-          amount: this.amount,
-          description: this.description,
-          bankAccountInfo: this.bankDetail,
-          creditCardInfo: this.cardDetail
-        }
-
-        this.$http.post('/payments', params).then(function (response) {
-          console.log(response)
-        }.bind(this)).catch(function (error) {
-          console.log(response)
-        }.bind(this))
+        this.getPaymentSpringToken()
       }
+    },
+
+    getPaymentSpringToken() {
+      var paymentData = {
+        address1: this.billingInfo.addressLine1,
+        address2: this.billingInfo.addressLine2,
+        city: this.billingInfo.city,
+        state: this.billingInfo.state,
+        zip: this.billingInfo.zip
+      }
+
+      if (this.paymentMethod == "Credit Card") {
+        // we want to use one of PaymentSpring's test credit cards so that we don't make any charges to the card entered by the user,
+        // since this site is for demo purposes only
+        paymentData['token_type'] = "credit_card"
+        paymentData['card_owner_name'] = "Grace Hopper"
+        paymentData['card_number'] =  "4111111111111111"
+        paymentData['card_exp_month'] = "12"
+        paymentData['card_exp_year'] =  "2029"
+        paymentData['csc'] = "999"
+      } else if (this.paymentMethod == "Bank Account") {
+        // we want to use one of PaymentSpring's test bank accounts so that we don't make any charges to the account entered by the user,
+        // since this site is for demo purposes only
+        paymentData['token_type'] = "bank_account"
+        paymentData['bank_account_number'] =  "1234567890"
+        paymentData['bank_routing_number'] = "100004058"
+        paymentData['bank_account_holder_first_name'] =  "Grace"
+        paymentData['bank_account_holder_last_name'] = "Hopper"
+        paymentData['bank_account_type'] = "checking"
+      }
+
+      paymentspring.generateToken(localStorage.paymentspringApiKey, paymentData, this.callbackFunction);
+    },
+
+    callbackFunction(response) {
+      console.log(this.amount)
+      var params = {
+        token: response.id,
+        amount: this.amount,
+        send_receipt: false
+      }
+
+      var headers = {
+        'Authorization': 'Basic ' + btoa(localStorage.paymentspringPrivateApiKey)
+      }
+      axios.post("https://api.paymentspring.com/api/v1/charge", params, { headers: headers })
+          .then(function (response) {
+              console.log(response)
+          }.bind(this)).catch(function (error) {
+              console.log(error)
+          }.bind(this))
     },
 
     updateCreditCardData(data) {
