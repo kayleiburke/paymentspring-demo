@@ -42,16 +42,22 @@
             <v-stepper-items>
               <v-stepper-content step="1">
                 <v-form ref="form1" v-model="formsValid.form1">
-                  <v-flex xs3>
-                    <helper-currency-field
-                            label='Amount'
-                            v-model="amount"
-                            :rules="[rules.required, amount > 0 || 'Must be greater than 0']"
-                    ></helper-currency-field>
-                  </v-flex>
-                  <v-flex xs12>
-                    <v-text-field label="Description" v-model="description" required></v-text-field>
-                  </v-flex>
+                  <v-container py-0>
+                    <v-layout
+                            wrap
+                    >
+                      <v-flex xs12 md3>
+                        <helper-currency-field
+                                label='Amount'
+                                v-model="amount"
+                                :rules="[rules.required, amount > 0 || 'Must be greater than 0']"
+                        ></helper-currency-field>
+                      </v-flex>
+                      <v-flex xs12 md12>
+                        <v-text-field label="Description" v-model="description" required></v-text-field>
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
 
                   <v-btn color="primary" @click="incrementStep(step)">
                     Continue

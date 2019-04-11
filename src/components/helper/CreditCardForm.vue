@@ -1,63 +1,64 @@
 <template>
-    <v-layout
-            justify-center
-            wrap
-    >
-        <v-flex xs12>
-            <div class="card-wrapper">
-                <card v-model="cardDetail" ref="creditCard"></card>
-            </div>
-        </v-flex>
+    <v-container py-0>
+        <v-layout
+                wrap
+        >
+            <v-flex xs12>
+                <div class="card-wrapper">
+                    <card v-model="cardDetail" ref="creditCard"></card>
+                </div>
+            </v-flex>
 
-        <v-flex xs6>
-            <v-text-field
-                    :error="!isValid('number')"
-                    name="number"
-                    placeholder="Card number"
-                    type="tel"
-                    v-model="cardDetail.number"
-                    v-card-focus>
-            </v-text-field>
-        </v-flex>
-        <v-flex xs6>
-            <v-text-field
-                    :error="!isValid('name')"
-                    name="name"
-                    placeholder="Full name"
-                    type="text"
-                    v-model="cardDetail.name"
-                    v-card-focus>
-            </v-text-field>
-        </v-flex>
-        <v-flex xs6>
-            <v-text-field
-                    :error="!isValid('expiry')"
-                    name="expiry"
-                    placeholder="MM/YY"
-                    type="tel"
-                    v-model="cardDetail.expiry"
-                    v-card-focus>
-            </v-text-field>
-        </v-flex>
-        <v-flex xs6>
-            <!-- manual formatting is required for this field because the Card invert functionality is not compatible with v-text-field -->
-            <div class="v-input v-text-field--placeholder theme--light" style="padding-top:12px; margin-top:4px;">
-                <div class="v-input__control">
-                    <div class="v-input__slot">
-                        <div class="v-text-field__slot">
-                            <input
-                                    :error="!isValid('cvc')"
-                                    name="cvc"
-                                    type="number"
-                                    placeholder="CVC"
-                                    v-model="cardDetail.cvc"
-                                    v-card-focus>
+            <v-flex xs12 md6>
+                <v-text-field
+                        :error="!isValid('number')"
+                        name="number"
+                        placeholder="Card number"
+                        type="tel"
+                        v-model="cardDetail.number"
+                        v-card-focus>
+                </v-text-field>
+            </v-flex>
+            <v-flex xs12 md6>
+                <v-text-field
+                        :error="!isValid('name')"
+                        name="name"
+                        placeholder="Full name"
+                        type="text"
+                        v-model="cardDetail.name"
+                        v-card-focus>
+                </v-text-field>
+            </v-flex>
+            <v-flex xs12 md6>
+                <v-text-field
+                        :error="!isValid('expiry')"
+                        name="expiry"
+                        placeholder="MM/YY"
+                        type="tel"
+                        v-model="cardDetail.expiry"
+                        v-card-focus>
+                </v-text-field>
+            </v-flex>
+            <v-flex xs12 md6>
+                <!-- manual formatting is required for this field because the Card invert functionality is not compatible with v-text-field -->
+                <div class="v-input v-text-field--placeholder theme--light" style="padding-top:12px; margin-top:4px;">
+                    <div class="v-input__control">
+                        <div class="v-input__slot">
+                            <div class="v-text-field__slot">
+                                <input
+                                        :error="!isValid('cvc')"
+                                        name="cvc"
+                                        type="number"
+                                        placeholder="CVC"
+                                        v-model="cardDetail.cvc"
+                                        v-card-focus>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </v-flex>
-    </v-layout>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
