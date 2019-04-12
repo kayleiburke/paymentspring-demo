@@ -1,6 +1,6 @@
 # PaymentSpring Gateway Portal
 
-This site is the front end portion of a small project built for a job application at PaymentSpring, as well as to showcase some web development skills.  The finished product will allow users to make sample payments, using PaymentSpring as a payment processing system. The code for the API is found [here](https://github.com/kayleiburke/PaymentSpringGateway).
+This site is the front end portion of a small project built to showcase some web development skills. It is an authenticated portal built on top of a Vuetify theme that allows users to make sample payments (through the "Make a Donation" page), using PaymentSpring as a payment processing system. The code for the API is found [here](https://github.com/kayleiburke/PaymentSpringGateway).
 
 The live demo site can be accessed at: https://payment-spring-gateway-portal.herokuapp.com
 
