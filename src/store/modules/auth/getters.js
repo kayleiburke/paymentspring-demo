@@ -1,5 +1,7 @@
 export default {
-    currentUser(state) {
-        return state.user
-    }
+    currentUser: state => state.currentUser,
+    token: state => state.token,
+    paymentspringApiKey: state => state.paymentspringApiKey,
+    paymentspringPrivateApiKey: state => state.paymentspringPrivateApiKey,
+    loginInProgress: state => state.loginInProgress
 }

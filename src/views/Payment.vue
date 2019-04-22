@@ -154,10 +154,7 @@ import axios from 'axios'
 
 export default {
   computed: {
-    ...mapGetters({ currentUser: 'auth/currentUser' })
-  },
-  mounted() {
-    this.$http.defaults.headers.common['X-User-Token'] = localStorage.token
+    ...mapGetters('auth', ['currentUser', 'paymentspringApiKey', 'paymentspringPrivateApiKey'])
   },
   data: () => ({
     error: '',
@@ -280,7 +277,7 @@ export default {
         paymentData['bank_account_type'] = "checking"
       }
 
-      paymentspring.generateToken(localStorage.paymentspringApiKey, paymentData, this.callbackFunction);
+      paymentspring.generateToken(this.paymentspringApiKey, paymentData, this.callbackFunction);
     },
 
     callbackFunction(response) {
@@ -291,7 +288,7 @@ export default {
       }
 
       var headers = {
-        'Authorization': 'Basic ' + btoa(localStorage.paymentspringPrivateApiKey)
+        'Authorization': 'Basic ' + btoa(this.paymentspringPrivateApiKey)
       }
       axios.post("https://api.paymentspring.com/api/v1/charge", params, { headers: headers })
           .then(function (response) {

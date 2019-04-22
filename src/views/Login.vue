@@ -24,18 +24,19 @@
                 <v-form @submit.prevent="login()">
                   <v-container py-0>
                     <v-layout wrap>
+                      {{currentUser}}
                       <v-flex xs12>
                         <v-text-field
                                 class="purple-input"
-                                label="Username"
-                                v-model="username"
+                                label="Email"
+                                v-model="loginData.email"
                         />
                       </v-flex>
                       <v-flex xs12>
                         <v-text-field
                                 class="purple-input"
                                 label="Password"
-                                v-model="password"
+                                v-model="loginData.password"
                                 type="password"
                         />
                       </v-flex>
@@ -47,7 +48,7 @@
                           {{error}}
                         </material-notification>
                       </v-flex>
-                      <v-flex sm12 v-if="showProgressBar">
+                      <v-flex sm12 v-if="loginInProgress">
                         <v-progress-circular
                                 :size="50"
                                 color="primary"
@@ -60,7 +61,7 @@
                                 color="success"
                                 round
                                 class="font-weight-light"
-                                :disabled="loginDisabled"
+                                :disabled="loginInProgress"
                                 type="submit"
                         >Login</v-btn>
                       </v-flex>
@@ -78,21 +79,22 @@
 
 <script>
 import { mapGetters } from 'vuex'
-const LOGIN_URL = '/users/sign_in'
 
 export default {
   name: 'Login',
   data () {
     return {
-      username: '',
-      password: '',
+      loginData: {
+        email: '',
+        password: ''
+      },
       error: false,
       loginDisabled: false,
       showProgressBar: false
     }
   },
   computed: {
-    ...mapGetters('auth', ['currentUser'])
+    ...mapGetters('auth', ['currentUser', 'loginInProgress'])
   },
   created () {
     this.checkCurrentLogin()
@@ -107,35 +109,11 @@ export default {
       }
     },
     login () {
-      this.loginDisabled = true
-      this.showProgressBar = true
-
-      var headers = {
-        'Authorization': 'Basic ' + btoa(this.username + ':' + this.password)
-      }
-
-      this.$http.post(LOGIN_URL, {}, { headers: headers })
-        .then(request => this.loginSuccessful(request))
+      this.$store.dispatch('auth/login', this.loginData)
+        .then(function() {
+          this.$router.replace(this.$route.query.redirect || '/')
+        }.bind(this))
         .catch(error => this.loginFailed(error))
-    },
-    loginSuccessful (req) {
-      this.showProgressBar = false
-
-      if (!req.data.authentication_token) {
-        this.loginFailed(req)
-        return
-      }
-      this.error = false
-      localStorage.token = req.data.authentication_token
-      localStorage.paymentspringApiKey = req.data.paymentspring_api_key
-      localStorage.paymentspringPrivateApiKey = req.data.paymentspring_private_api_key
-      // TODO: store more information about user, such as permissions and roles
-      localStorage.userInfo = JSON.stringify({
-        email: req.data.email
-      })
-      this.$store.dispatch('auth/login')
-
-      this.$router.replace(this.$route.query.redirect || '/')
     },
     loginFailed (error) {
       this.error = 'Login failed!'
@@ -149,11 +127,6 @@ export default {
           }
         }
       }
-
-      this.loginDisabled = false
-      this.showProgressBar = false
-      this.$store.dispatch('auth/logout')
-      delete localStorage.token
     }
   }
 }
