@@ -109,6 +109,7 @@ export default {
       }
     },
     login () {
+      this.error = ''
       this.$store.dispatch('auth/login', this.loginData)
         .then(function() {
           this.$router.replace(this.$route.query.redirect || '/')

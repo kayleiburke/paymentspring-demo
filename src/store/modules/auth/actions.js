@@ -13,7 +13,6 @@ export default {
           commit(MutationTypes.LOGIN, response.data)
           return response.data
         })
-        .catch(error => error)
         .finally(() => commit('loginInProgress', false))
   },
 
