@@ -76,6 +76,10 @@
             setIsFormValid: {
                 type: Function,
                 required: true
+            },
+            formName: {
+                type: String,
+                required: true
             }
         },
         mounted () {
@@ -105,7 +109,7 @@
         methods: {
             onChange() {
                 this.updateData(this.cardDetail)
-                this.setIsFormValid(this.isFormValid())
+                this.setIsFormValid({ formName: this.formName, isFormValid: this.isFormValid() })
             },
 
             isFormValid() {

@@ -12,8 +12,8 @@
 
         <span class="subheading">
           Please fill out the form below to simulate making a donation.  Please note that this is for demo purposes only, and no credit cards or bank accounts will be charged.  When the payment form is submitted, a payment will be simulated through <a href="https://www.paymentspring.com">PaymentSpring</a> using a test credit card or bank account.
-            </span>
-        <v-divider class="my-3"></v-divider>
+        </span>
+        <v-divider class="my-3"/>
       </v-flex>
       <v-flex
         xs12
@@ -25,114 +25,163 @@
         >
           <v-stepper v-model="step">
             <v-stepper-header>
-              <v-stepper-step :complete="step > 1" step="1">Amount</v-stepper-step>
+              <v-stepper-step
+                :complete="step > 1"
+                step="1">Amount</v-stepper-step>
 
-              <v-divider></v-divider>
+              <v-divider/>
 
-              <v-stepper-step :complete="step > 2" step="2">Payment Method</v-stepper-step>
+              <v-stepper-step
+                :complete="step > 2"
+                step="2">Payment Method</v-stepper-step>
 
-              <v-divider></v-divider>
+              <v-divider/>
 
               <v-stepper-step step="3">Billing Info</v-stepper-step>
             </v-stepper-header>
 
             <v-stepper-items>
               <v-stepper-content step="1">
-                <v-form ref="form1" v-model="formsValid.form1">
+                <v-form
+                  ref="form1"
+                  v-model="formsValid.form1">
                   <v-container py-0>
                     <v-layout
-                            wrap
+                      wrap
                     >
-                      <v-flex xs12 md12 class="hidden-lg-and-up">
+                      <v-flex
+                        xs12
+                        md12
+                        class="hidden-lg-and-up">
                         <h4>Amount</h4>
                       </v-flex>
-                      <v-flex xs12 md3>
+                      <v-flex
+                        xs12
+                        md3>
                         <helper-currency-field
-                                label='Amount'
-                                v-model="amount"
-                                :rules="[rules.required, amount > 0 || 'Must be greater than 0']"
-                        ></helper-currency-field>
+                          v-model="amount"
+                          :rules="[rules.required, amount > 0 || 'Must be greater than 0']"
+                          label="Amount"
+                        />
                       </v-flex>
-                      <v-flex xs12 md12>
-                        <v-text-field label="Description" v-model="description" required></v-text-field>
+                      <v-flex
+                        xs12
+                        md12>
+                        <v-text-field
+                          v-model="description"
+                          label="Description"
+                          required/>
                       </v-flex>
                     </v-layout>
                   </v-container>
 
-                  <v-btn color="primary" @click="incrementStep(step)">
+                  <v-btn
+                    color="primary"
+                    @click="incrementStep(step)">
                     Continue
                   </v-btn>
                 </v-form>
               </v-stepper-content>
 
               <v-stepper-content step="2">
-                <v-form ref="form2" v-model="formsValid.form2">
-                  <v-flex xs12 md12 class="hidden-lg-and-up">
+                <v-form
+                  ref="form2"
+                  v-model="formsValid.form2">
+                  <v-flex
+                    xs12
+                    md12
+                    class="hidden-lg-and-up">
                     <h4>Payment Method</h4>
                   </v-flex>
                   <v-radio-group v-model="paymentMethod">
                     <v-radio
-                            v-for="n in paymentMethods"
-                            :key="n"
-                            :label="`${n}`"
-                            :value="n"
-                            @change="onChangePaymentMethod"
-                    ></v-radio>
+                      v-for="n in paymentMethods"
+                      :key="n"
+                      :label="`${n}`"
+                      :value="n"
+                      @change="onChangePaymentMethod"
+                    />
                   </v-radio-group>
 
                   <v-flex>
-                      <helper-credit-card-form
-                              ref="creditCardForm"
-                              v-show="paymentMethod == 'Credit Card'"
-                              :updateData="updateCreditCardData"
-                              :setIsFormValid="setIsForm2Valid">
-                      </helper-credit-card-form>
-                      <helper-bank-account-form
-                              ref="bankAccountForm"
-                              v-show="paymentMethod == 'Bank Account'"
-                              :updateData="updateBankAccountData"
-                              :setIsFormValid="setIsForm2Valid">
-                      </helper-bank-account-form>
+                    <helper-credit-card-form
+                      v-show="paymentMethod === 'Credit Card'"
+                      ref="creditCardForm"
+                      :update-data="updateCreditCardData"
+                      :form-name="'form2'"
+                      :set-is-form-valid="setIsFormValid"/>
+                    <helper-bank-account-form
+                      v-show="paymentMethod === 'Bank Account'"
+                      ref="bankAccountForm"
+                      :update-data="updateBankAccountData"
+                      :form-name="'form2'"
+                      :set-is-form-valid="setIsFormValid"/>
                   </v-flex>
 
-                  <material-error-notification v-if="formErrors.form2" :error="formErrors.form2"></material-error-notification>
+                  <material-error-notification
+                    v-if="formErrors.form2"
+                    :error="formErrors.form2"/>
 
-                  <v-btn flat color="primary" @click.native="step = 1">Previous</v-btn>
-                  <v-btn color="primary" @click="incrementStep(step)">
+                  <v-btn
+                    flat
+                    color="primary"
+                    @click.native="step = 1">Previous</v-btn>
+                  <v-btn
+                    color="primary"
+                    @click="incrementStep(step)">
                     Continue
                   </v-btn>
                 </v-form>
               </v-stepper-content>
 
               <v-stepper-content step="3">
-                <v-form ref="form3" v-model="formsValid.form3">
+                <v-form
+                  ref="form3"
+                  v-model="formsValid.form3">
                   <v-flex>
-                    <v-flex xs12 md12 class="hidden-lg-and-up">
+                    <v-flex
+                      xs12
+                      md12
+                      class="hidden-lg-and-up">
                       <h4>Billing Info</h4>
                     </v-flex>
                     <helper-billing-info-form
-                            ref="billingInfoForm"
-                            :updateData="updateBillingInfoData"
-                            :setIsFormValid="setIsForm3Valid">
-                    </helper-billing-info-form>
+                      ref="billingInfoForm"
+                      :update-data="updateBillingInfoData"
+                      :form-name="'form3'"
+                      :set-is-form-valid="setIsFormValid"/>
                   </v-flex>
                 </v-form>
 
-                <v-flex sm12 v-if="showProgressBar">
+                <v-flex
+                  v-if="showProgressBar"
+                  sm12>
                   <v-progress-circular
-                          :size="50"
-                          color="primary"
-                          indeterminate
-                  ></v-progress-circular>
+                    :size="50"
+                    color="primary"
+                    indeterminate
+                  />
                 </v-flex>
-                <material-error-notification v-if="formErrors.form3" :error="formErrors.form3"></material-error-notification>
-                <material-error-notification v-if="paymentFailed" :error="paymentErrorMessage"></material-error-notification>
-                <material-notification color="info" v-if="paymentSuccessful">
+                <material-error-notification
+                  v-if="formErrors.form3"
+                  :error="formErrors.form3"/>
+                <material-error-notification
+                  v-if="paymentFailed"
+                  :error="paymentErrorMessage"/>
+                <material-notification
+                  v-if="paymentSuccessful"
+                  color="info">
                   Payment successful
                 </material-notification>
 
-                <v-btn flat color="primary" @click.native="step = 2">Previous</v-btn>
-                <v-btn color="primary" :disabled="showProgressBar" @click="submitPayment">
+                <v-btn
+                  flat
+                  color="primary"
+                  @click.native="step = 2">Previous</v-btn>
+                <v-btn
+                  :disabled="showProgressBar"
+                  color="primary"
+                  @click="submitPayment">
                   Submit Payment
                 </v-btn>
 
@@ -153,9 +202,6 @@ import { mapGetters } from 'vuex'
 import axios from 'axios'
 
 export default {
-  computed: {
-    ...mapGetters('auth', ['currentUser', 'paymentspringApiKey', 'paymentspringPrivateApiKey'])
-  },
   data: () => ({
     error: '',
     step: 1,
@@ -201,23 +247,26 @@ export default {
       state: '',
       zip: ''
     },
-    registration:{
-      amount:null,
-      name:null,
-      email:null,
-      street:null,
-      city:null,
-      state:null,
-      numtickets:0,
-      shirtsize:'XL'
+    registration: {
+      amount: null,
+      name: null,
+      email: null,
+      street: null,
+      city: null,
+      state: null,
+      numtickets: 0,
+      shirtsize: 'XL'
     },
     rules: {
-      required: value => !!value  || 'Field is required.',
+      required: value => !!value || 'Field is required.',
       greaterThanZero: v => v > 0 || 'Must be greater than 0'
     }
   }),
-  methods:{
-    incrementStep(step) {
+  computed: {
+    ...mapGetters('auth', ['currentUser', 'paymentspringApiKey', 'paymentspringPrivateApiKey'])
+  },
+  methods: {
+    incrementStep (step) {
       this.$refs['form' + step].validate()
       this.formErrors['form' + step] = null
 
@@ -230,12 +279,12 @@ export default {
       }
     },
 
-    onChangePaymentMethod(paymentMethod) {
+    onChangePaymentMethod (paymentMethod) {
       this.formErrors.form2 = null
       this.formsValid.form2 = this.$refs[this.toCamelCase(paymentMethod) + 'Form'].isFormValid()
     },
 
-    submitPayment() {
+    submitPayment () {
       this.paymentSuccessful = false
       this.paymentFailed = false
       this.paymentErrorMessage = null
@@ -246,7 +295,7 @@ export default {
       }
     },
 
-    getPaymentSpringToken() {
+    getPaymentSpringToken () {
       this.showProgressBar = true
 
       var paymentData = {
@@ -257,30 +306,30 @@ export default {
         zip: this.billingInfo.zip
       }
 
-      if (this.paymentMethod == "Credit Card") {
+      if (this.paymentMethod === 'Credit Card') {
         // we want to use one of PaymentSpring's test credit cards so that we don't make any charges to the card entered by the user,
         // since this site is for demo purposes only
-        paymentData['token_type'] = "credit_card"
-        paymentData['card_owner_name'] = "Grace Hopper"
-        paymentData['card_number'] =  "4111111111111111"
-        paymentData['card_exp_month'] = "12"
-        paymentData['card_exp_year'] =  "2029"
-        paymentData['csc'] = "999"
-      } else if (this.paymentMethod == "Bank Account") {
+        paymentData['token_type'] = 'credit_card'
+        paymentData['card_owner_name'] = 'Grace Hopper'
+        paymentData['card_number'] = '4111111111111111'
+        paymentData['card_exp_month'] = '12'
+        paymentData['card_exp_year'] = '2029'
+        paymentData['csc'] = '999'
+      } else if (this.paymentMethod === 'Bank Account') {
         // we want to use one of PaymentSpring's test bank accounts so that we don't make any charges to the account entered by the user,
         // since this site is for demo purposes only
-        paymentData['token_type'] = "bank_account"
-        paymentData['bank_account_number'] =  "1234567890"
-        paymentData['bank_routing_number'] = "100004058"
-        paymentData['bank_account_holder_first_name'] =  "Grace"
-        paymentData['bank_account_holder_last_name'] = "Hopper"
-        paymentData['bank_account_type'] = "checking"
+        paymentData['token_type'] = 'bank_account'
+        paymentData['bank_account_number'] = '1234567890'
+        paymentData['bank_routing_number'] = '100004058'
+        paymentData['bank_account_holder_first_name'] = 'Grace'
+        paymentData['bank_account_holder_last_name'] = 'Hopper'
+        paymentData['bank_account_type'] = 'checking'
       }
 
-      paymentspring.generateToken(this.paymentspringApiKey, paymentData, this.callbackFunction);
+      paymentspring.generateToken(this.paymentspringApiKey, paymentData, this.callbackFunction)
     },
 
-    callbackFunction(response) {
+    callbackFunction (response) {
       var params = {
         token: response.id,
         amount: this.amount * 100,
@@ -290,55 +339,47 @@ export default {
       var headers = {
         'Authorization': 'Basic ' + btoa(this.paymentspringPrivateApiKey)
       }
-      axios.post("https://api.paymentspring.com/api/v1/charge", params, { headers: headers })
-          .then(function (response) {
-              this.showProgressBar = false
-              if (response.data.successful) {
-                this.paymentSuccessful = true
-              } else if (response.data.error_message) {
-                this.paymentFailed = true
-                this.paymentErrorMessage = response.data.error_message
-              }
-          }.bind(this)).catch(function (error) {
-              this.showProgressBar = false
-              this.paymentFailed = true
-              this.paymentErrorMessage = 'An error has occurred, please try again later.'
-          }.bind(this))
+      axios.post('https://api.paymentspring.com/api/v1/charge', params, { headers: headers })
+        .then(function (response) {
+          this.showProgressBar = false
+          if (response.data.successful) {
+            this.paymentSuccessful = true
+          } else if (response.data.error_message) {
+            this.paymentFailed = true
+            this.paymentErrorMessage = response.data.error_message
+          }
+        }.bind(this)).catch(function (error) {
+          this.showProgressBar = false
+          this.paymentFailed = true
+          this.paymentErrorMessage = 'An error has occurred, please try again later.'
+        }.bind(this))
     },
 
-    updateCreditCardData(data) {
+    updateCreditCardData (data) {
       this.cardDetail = _.clone(data)
     },
 
-    updateBankAccountData(data) {
+    updateBankAccountData (data) {
       this.bankDetail = _.clone(data)
     },
 
-    updateBillingInfoData(data) {
+    updateBillingInfoData (data) {
       this.billingInfo = _.clone(data)
     },
 
-    setIsForm2Valid(isValid) {
-      this.formsValid.form2 = isValid
+    setIsFormValid ({form, isValid} = {}) {
+      this.formsValid[form] = isValid
 
       if (isValid) {
-        this.formErrors.form2 = null
+        this.formErrors[form] = null
       }
     },
 
-    setIsForm3Valid(isValid) {
-      this.formsValid.form3 = isValid
-
-      if (isValid) {
-        this.formErrors.form3 = null
-      }
-    },
-
-    toCamelCase(str) {
+    toCamelCase (str) {
       return str
-              .replace(/\s(.)/g, function($1) { return $1.toUpperCase(); })
-              .replace(/\s/g, '')
-              .replace(/^(.)/, function($1) { return $1.toLowerCase(); });
+        .replace(/\s(.)/g, function ($1) { return $1.toUpperCase() })
+        .replace(/\s/g, '')
+        .replace(/^(.)/, function ($1) { return $1.toLowerCase() })
     }
   }
 }

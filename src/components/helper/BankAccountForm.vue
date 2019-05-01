@@ -70,6 +70,10 @@
             setIsFormValid: {
                 type: Function,
                 required: true
+            },
+            formName: {
+                type: String,
+                required: true
             }
         },
         data () {
@@ -119,7 +123,7 @@
         methods: {
             onChange(data) {
                 this.updateData(this.bankDetail)
-                this.setIsFormValid(this.isFormValid())
+                this.setIsFormValid({ formName: this.formName, isFormValid: this.isFormValid() })
             },
 
             isFormValid() {
