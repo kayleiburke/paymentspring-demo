@@ -263,7 +263,7 @@ export default {
     }
   }),
   computed: {
-    ...mapGetters('auth', ['currentUser', 'paymentspringApiKey', 'paymentspringPrivateApiKey'])
+    ...mapGetters('auth', ['currentUser', 'paymentspringApiKey'])
   },
   methods: {
     incrementStep (step) {
@@ -336,23 +336,20 @@ export default {
         send_receipt: false
       }
 
-      var headers = {
-        'Authorization': 'Basic ' + btoa(this.paymentspringPrivateApiKey)
-      }
-      axios.post('https://api.paymentspring.com/api/v1/charge', params, { headers: headers })
-        .then(function (response) {
-          this.showProgressBar = false
-          if (response.data.successful) {
-            this.paymentSuccessful = true
-          } else if (response.data.error_message) {
-            this.paymentFailed = true
-            this.paymentErrorMessage = response.data.error_message
-          }
-        }.bind(this)).catch(function (error) {
-          this.showProgressBar = false
+      this.$store.dispatch('charge', params)
+      .then(function (response) {
+        this.showProgressBar = false
+        if (response.data.successful) {
+          this.paymentSuccessful = true
+        } else if (response.data.error_message) {
           this.paymentFailed = true
-          this.paymentErrorMessage = 'An error has occurred, please try again later.'
-        }.bind(this))
+          this.paymentErrorMessage = response.data.error_message
+        }
+      }.bind(this)).catch(function (error) {
+        this.showProgressBar = false
+        this.paymentFailed = true
+        this.paymentErrorMessage = 'An error has occurred, please try again later.'
+      }.bind(this))
     },
 
     updateCreditCardData (data) {
