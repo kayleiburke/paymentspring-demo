@@ -23,7 +23,7 @@
           title="Payment Information"
           text="Please complete the form below"
         >
-          <v-stepper v-model="step">
+          <v-stepper v-model="step" v-if="!paymentSuccessful">
             <v-stepper-header>
               <v-stepper-step
                 :complete="step > 1"
@@ -189,6 +189,9 @@
               </v-stepper-content>
             </v-stepper-items>
           </v-stepper>
+          <v-card-text class="text-center" v-if="paymentSuccessful">
+            Payment successful
+          </v-card-text>
         </material-card>
 
       </v-flex>
