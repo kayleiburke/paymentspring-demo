@@ -367,11 +367,11 @@ export default {
       this.billingInfo = _.clone(data)
     },
 
-    setIsFormValid ({form, isValid} = {}) {
-      this.formsValid[form] = isValid
+    setIsFormValid ({formName, isFormValid} = {}) {
+      this.formsValid[formName] = isFormValid
 
-      if (isValid) {
-        this.formErrors[form] = null
+      if (isFormValid) {
+        this.formErrors[formName] = null
       }
     },
 
