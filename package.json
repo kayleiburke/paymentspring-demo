@@ -23,6 +23,7 @@
     "vue-chartist": "^2.1.2",
     "vue-cli": "^2.9.6",
     "vue-credit-card": "0.0.11",
+    "vue-google-charts": "^0.3.2",
     "vue-lodash": "^2.0.2",
     "vue-meta": "^1.5.2",
     "vue-underscore": "^0.1.4",

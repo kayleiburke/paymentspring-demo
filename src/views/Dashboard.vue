@@ -10,13 +10,13 @@
         sm12
         lg4
       >
-        <material-chart-card
+        <material-google-chart-card
           :data="dailySalesChart.data"
           :options="dailySalesChart.options"
           color="info"
           type="Line"
         >
-          <h4 class="title font-weight-light">Daily Sales</h4>
+          <h4 class="title font-weight-light">Yearly Sales</h4>
           <p class="category d-inline-flex font-weight-light">
             <v-icon
               color="green"
@@ -37,7 +37,7 @@
             </v-icon>
             <span class="caption grey--text font-weight-light">updated 4 minutes ago</span>
           </template>
-        </material-chart-card>
+        </material-google-chart-card>
       </v-flex>
       <v-flex
         md12
@@ -364,23 +364,56 @@ export default {
   data () {
     return {
       dailySalesChart: {
-        data: {
-          labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-          series: [
-            [12, 17, 7, 17, 23, 18, 38]
-          ]
-        },
+        data: [
+          ['Year', 'Sales', 'Expenses', 'Profit'],
+          ['2014', 1000, 400, 200],
+          ['2015', 1170, 460, 250],
+          ['2016', 660, 1120, 300],
+          ['2017', 1030, 540, 350]
+        ],
         options: {
-          lineSmooth: this.$chartist.Interpolation.cardinal({
-            tension: 0
-          }),
-          low: 0,
-          high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: {
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0
+          chart: {
+            title: 'Company Performance',
+            subtitle: 'Sales, Expenses, and Profit: 2014-2017'
+          },
+          crosshair: {
+            color: 'white'
+          },
+          chartArea: {
+            backgroundColor: {
+              fill: 'info'
+            },
+          },
+          hAxis: {
+            textPosition: 'none',
+            gridlineColor: 'white',
+            baselineColor: 'white'
+          },
+          vAxis:{
+            baselineColor: 'white',
+            gridlineColor: 'white',
+            textStyle:{
+              color: 'white'
+            }
+          },
+          animation:{
+            duration: 1000,
+            startup: true
+          },
+          lineWidth: 4,
+          colors: ['white', '#ff9800', '#f44336'],
+          // Colors the entire chart area, simple version
+          // backgroundColor: '#FF0000',
+          // Colors the entire chart area, with opacity
+          backgroundColor: {
+            fill: 'info',
+            fillOpacity: 0
+          },
+          legend: {
+            position: 'bottom',
+            textStyle: {
+              color: 'white'
+            }
           }
         }
       },
