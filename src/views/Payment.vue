@@ -344,9 +344,9 @@ export default {
         this.showProgressBar = false
         if (response.data.successful) {
           this.paymentSuccessful = true
-        } else if (response.data.error_message) {
+        } else if (response.data.errors) {
           this.paymentFailed = true
-          this.paymentErrorMessage = response.data.error_message
+          this.paymentErrorMessage = response.data.errors.message
         }
       }.bind(this)).catch(function (error) {
         this.showProgressBar = false
