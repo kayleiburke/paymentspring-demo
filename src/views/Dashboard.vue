@@ -47,6 +47,24 @@
                     :sub-text="'Last ' + timespan"
             />
       </v-flex>
+      <v-flex
+                sm6
+                xs12
+                md6
+                lg3
+      >
+          <router-link to="/payment">
+              <v-btn
+                      large
+                      class="mx-0 font-weight-light"
+                      color="purple"
+                      round
+              >
+                  <v-icon left>mdi-home-currency-usd</v-icon>
+                  <span>Make a Donation!</span>
+              </v-btn>
+          </router-link>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -92,7 +110,7 @@ export default {
               color: 'white',
               fontName: 'Roboto,sans-serif'
             },
-            format: '$##,###'
+            format: 'currency'
           },
           animation:{
             duration: 1000,
