@@ -28,7 +28,7 @@
                 >
                     mdi-clock-outline
                 </v-icon>
-                <span class="caption grey--text font-weight-light">updated 4 minutes ago</span>
+                <span class="caption grey--text font-weight-light">updated {{ new Date() | moment("dddd, MMMM Do YYYY, h:mm a") }}</span>
             </template>
         </material-google-chart-card>
       </v-flex>
@@ -44,7 +44,7 @@ export default {
   data () {
     return {
       paymentsChart: {
-        data: [['Date', 'Payment'], ['', 0]],
+        data: [['Date', 'Donations'], ['', 0]],
         options: {
           chart: {
             title: 'Company Performance',

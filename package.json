@@ -26,6 +26,7 @@
     "vue-google-charts": "^0.3.2",
     "vue-lodash": "^2.0.2",
     "vue-meta": "^1.5.2",
+    "vue-moment": "^4.0.0",
     "vue-underscore": "^0.1.4",
     "vuetify": "^1.2.5",
     "vuetify-credit-card": "^1.0.0",

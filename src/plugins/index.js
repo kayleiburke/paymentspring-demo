@@ -1,4 +1,5 @@
 import './bootstrap-vue'
 import './underscore'
+import './moment'
 import './chartist'
 import './vuetify'
