@@ -11,8 +11,8 @@
             lg12
       >
         <material-google-chart-card
-                :data="paymentsChart.data"
-                :options="paymentsChart.options"
+                :data="donationsChart.data"
+                :options="donationsChart.options"
                 color="info"
                 type="AreaChart"
         >
@@ -32,6 +32,21 @@
             </template>
         </material-google-chart-card>
       </v-flex>
+      <v-flex
+                sm6
+                xs12
+                md6
+                lg3
+        >
+            <material-stats-card
+                    color="green"
+                    icon="mdi-currency-usd"
+                    title="Total Donations"
+                    :value="totalDonations | currency({symbol: '$', thousandsSeparator: ',', fractionCount: 2, fractionSeparator: '.'})"
+                    sub-icon="mdi-clock-outline"
+                    :sub-text="'Last ' + timespan"
+            />
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -39,11 +54,14 @@
 <script>
 export default {
   mounted () {
-    this.getPayments()
+    this.getDonations()
   },
   data () {
     return {
-      paymentsChart: {
+      totalDonations: 0,
+      donationCount: 0,
+      timespan: '',
+      donationsChart: {
         data: [['Date', 'Donations'], ['', 0]],
         options: {
           chart: {
@@ -102,12 +120,17 @@ export default {
     }
   },
   methods: {
-    getPayments () {
+    getDonations () {
         this.$store.dispatch('getPayments')
             .then(function (response) {
                 if (response.data) {
-                  this.paymentsChart.data.pop()
-                  this.paymentsChart.data = this.paymentsChart.data.concat(response.data)
+                    if (response.data.list) {
+                        this.donationsChart.data.pop()
+                        this.donationsChart.data = this.donationsChart.data.concat(response.data.list)
+                        this.totalDonations = response.data.total
+                        this.donationCount = response.data.count
+                        this.timespan = response.data.timespan
+                    }
                 } else if (response.data.errors) {
                 }
             }.bind(this)).catch(function (error) {

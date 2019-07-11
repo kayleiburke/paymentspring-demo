@@ -1,5 +1,6 @@
 import './bootstrap-vue'
 import './underscore'
 import './moment'
+import './currency-filter'
 import './chartist'
 import './vuetify'
