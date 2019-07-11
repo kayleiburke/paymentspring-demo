@@ -6,7 +6,7 @@
   >
     <GChart
       slot="header"
-      type="LineChart"
+      :type="type"
       :data="data"
       :options="options"
     />
@@ -50,7 +50,7 @@ export default {
     type: {
       type: String,
       required: true,
-      validator: v => ['Bar', 'Line', 'Pie'].includes(v)
+      validator: v => ['AreaChart', 'LineChart'].includes(v)
     }
   },
   components: {

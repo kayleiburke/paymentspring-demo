@@ -1,8 +1,12 @@
 import Vue from 'vue'
+import { getHeaders } from './helpers'
 
 export default {
     charge ({ commit, state }, data) {
-        var headers = {'X-User-Token': state.auth.token, 'X-User-Email': state.auth.currentUser.email}
-        return Vue.axios.post('/api/v1/payments', data, { headers: headers })
+        return Vue.axios.post('/api/v1/payments', data, { headers: getHeaders(state) })
+    },
+
+    getPayments ({ commit, state }) {
+        return Vue.axios.get('/api/v1/payments', { headers: getHeaders(state) })
     }
 }
