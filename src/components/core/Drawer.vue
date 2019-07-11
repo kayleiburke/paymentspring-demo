@@ -86,7 +86,12 @@ export default {
       {
         to: '/user-profile',
         icon: 'mdi-account',
-        text: 'User Profile'
+        text: 'Sample User Profile'
+      },
+      {
+        to: '/charts',
+        icon: 'mdi-chart-bar',
+        text: 'Sample Charts'
       }/*,
       {
         to: '/table-list',

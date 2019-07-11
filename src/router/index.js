@@ -26,6 +26,7 @@ import Typography from '@/views/Typography'
 import Upgrade from '@/views/Upgrade'
 import UserProfile from '@/views/UserProfile'
 import Payment from '@/views/Payment'
+import Charts from '@/views/Charts'
 
 Vue.use(Router)
 Vue.use(VuexFlash, { mixin: true })
@@ -56,12 +57,18 @@ const router = new Router({
         {
           path: '/payment',
           name: 'Make a Donation',
+          pageTitle: 'Make a Donation',
           component: Payment
         },
         {
           path: '/user-profile',
-          name: 'User Profile',
+          name: 'Sample User Profile',
           component: UserProfile
+        },
+        {
+          path: '/charts',
+          name: 'Sample Charts',
+          component: Charts
         },
         {
           path: '/table-list',
