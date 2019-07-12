@@ -10,7 +10,7 @@ export default {
 
         state.token = data.authentication_token
         state.paymentspringApiKey = data.paymentspring_api_key
-        state.currentUser = JSON.stringify(User.from(data))
+        state.currentUser = User.from(data)
     },
     [MutationTypes.LOGOUT] (state) {
         delete localStorage.currentUser
