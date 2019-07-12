@@ -8,7 +8,7 @@
       wrap
     >
       <v-flex xs12>
-        <h3 class="display-3">Make a Donation</h3>
+        <h3 class="display-1">Make a Donation</h3>
 
         <span class="subheading">
           Please fill out the form below to simulate making a donation.  Please note that this is for demo purposes only, and no credit cards or bank accounts will be charged.  When the payment form is submitted, a payment will be simulated through <a href="https://www.paymentspring.com">PaymentSpring</a> using a test credit card or bank account.
