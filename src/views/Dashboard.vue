@@ -18,7 +18,7 @@
         >
           <h3 class="title font-weight-light">Donation Summary</h3>
           <p class="category d-inline-flex font-weight-light">
-            A summary of all donations made
+            A summary of all mock donations made
           </p>
 
           <template slot="actions">
