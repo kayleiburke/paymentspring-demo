@@ -19,6 +19,8 @@ import Full from '@/views/Full'
 import Icons from '@/views/Icons'
 import Login from '@/views/Login'
 import Logout from '@/views/Logout'
+import Register from '@/views/Register'
+import Inauthenticated from '@/views/Inauthenticated'
 import Maps from '@/views/Maps'
 import Notifications from '@/views/Notifications'
 import TableList from '@/views/TableList'
@@ -37,12 +39,25 @@ const router = new Router({
   routes: [
     {
       path: '/login',
-      component: Login
-    },
-    {
-      path: '/logout',
-      name: 'Logout',
-      component: Logout
+      redirect: '/login',
+      component: Inauthenticated,
+      children: [
+        {
+          path: '/login',
+          name: 'Login',
+          component: Login
+        },
+        {
+          path: '/logout',
+          name: 'Logout',
+          component: Logout
+        },
+        {
+          path: '/register',
+          name: 'Register',
+          component: Register
+        }
+      ]
     },
     {
       path: '/',
@@ -57,7 +72,6 @@ const router = new Router({
         {
           path: '/payment',
           name: 'Make a Donation',
-          pageTitle: 'Make a Donation',
           component: Payment
         },
         {
