@@ -107,7 +107,8 @@ export default {
     },
     onClick (item) {
       if (item == 'Logout') {
-        this.$router.replace('/logout')
+        this.$store.dispatch('auth/logout')
+        this.$router.push('/login')
       } else if (item == 'Profile') {
         this.$router.replace('/user-profile')
       }

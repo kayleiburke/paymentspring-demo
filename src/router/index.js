@@ -18,7 +18,6 @@ import Dashboard from '@/views/Dashboard'
 import Full from '@/views/Full'
 import Icons from '@/views/Icons'
 import Login from '@/views/Login'
-import Logout from '@/views/Logout'
 import Register from '@/views/Register'
 import Inauthenticated from '@/views/Inauthenticated'
 import Maps from '@/views/Maps'
@@ -46,11 +45,6 @@ const router = new Router({
           path: '/login',
           name: 'Login',
           component: Login
-        },
-        {
-          path: '/logout',
-          name: 'Logout',
-          component: Logout
         },
         {
           path: '/register',
