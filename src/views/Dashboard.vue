@@ -80,7 +80,7 @@ export default {
       donationCount: 0,
       timespan: '',
       donationsChart: {
-        data: [['Date', 'Donations'], ['', 0]],
+        data: [],
         options: {
           chart: {
             title: 'Company Performance',
@@ -143,8 +143,7 @@ export default {
             .then(function (response) {
                 if (response.data) {
                     if (response.data.list) {
-                        this.donationsChart.data.pop()
-                        this.donationsChart.data = this.donationsChart.data.concat(response.data.list)
+                        this.donationsChart.data = [['Date', 'Donations']].concat(response.data.list)
                         this.totalDonations = response.data.total
                         this.donationCount = response.data.count
                         this.timespan = response.data.timespan

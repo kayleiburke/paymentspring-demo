@@ -4,12 +4,32 @@
     class="v-card--material-chart"
     v-on="$listeners"
   >
-    <GChart
-      slot="header"
-      :type="type"
-      :data="data"
-      :options="options"
-    />
+        <GChart
+          v-show="data.length > 0"
+          slot="header"
+          :type="type"
+          :data="data"
+          :options="options"
+        />
+      <v-container
+              bg
+              fill-height
+              grid-list-md
+              text-xs-center
+              slot="header"
+              v-show="data.length == 0"
+      >
+          <v-layout row wrap align-center>
+              <v-flex>
+                  <v-progress-circular
+                          :width="4"
+                          :size="70"
+                          color="white"
+                          indeterminate
+                  ></v-progress-circular>
+              </v-flex>
+          </v-layout>
+      </v-container>
 
     <slot />
 
