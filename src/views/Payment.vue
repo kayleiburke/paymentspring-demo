@@ -23,7 +23,9 @@
           title="Payment Information"
           text="Please complete the form below"
         >
-          <v-stepper v-model="step" v-if="!paymentSuccessful">
+          <v-stepper
+            v-if="!paymentSuccessful"
+            v-model="step">
             <v-stepper-header>
               <v-stepper-step
                 :complete="step > 1"
@@ -189,7 +191,9 @@
               </v-stepper-content>
             </v-stepper-items>
           </v-stepper>
-          <v-card-text class="text-center" v-if="paymentSuccessful">
+          <v-card-text
+            v-if="paymentSuccessful"
+            class="text-center">
             Payment successful
           </v-card-text>
         </material-card>
@@ -202,7 +206,6 @@
 <script>
 import {_} from 'vue-underscore'
 import { mapGetters } from 'vuex'
-import axios from 'axios'
 
 export default {
   data: () => ({
@@ -340,19 +343,19 @@ export default {
       }
 
       this.$store.dispatch('charge', params)
-      .then(function (response) {
-        this.showProgressBar = false
-        if (response.data.successful) {
-          this.paymentSuccessful = true
-        } else if (response.data.errors) {
+        .then(function (response) {
+          this.showProgressBar = false
+          if (response.data.successful) {
+            this.paymentSuccessful = true
+          } else if (response.data.errors) {
+            this.paymentFailed = true
+            this.paymentErrorMessage = response.data.errors.message
+          }
+        }.bind(this)).catch(function (error) {
+          this.showProgressBar = false
           this.paymentFailed = true
-          this.paymentErrorMessage = response.data.errors.message
-        }
-      }.bind(this)).catch(function (error) {
-        this.showProgressBar = false
-        this.paymentFailed = true
-        this.paymentErrorMessage = 'An error has occurred, please try again later.'
-      }.bind(this))
+          this.paymentErrorMessage = 'An error has occurred, please try again later.'
+        }.bind(this))
     },
 
     updateCreditCardData (data) {

@@ -4,32 +4,35 @@
     class="v-card--material-chart"
     v-on="$listeners"
   >
-        <GChart
-          v-show="data.length > 0"
-          slot="header"
-          :type="type"
-          :data="data"
-          :options="options"
-        />
-      <v-container
-              bg
-              fill-height
-              grid-list-md
-              text-xs-center
-              slot="header"
-              v-show="data.length == 0"
-      >
-          <v-layout row wrap align-center>
-              <v-flex>
-                  <v-progress-circular
-                          :width="4"
-                          :size="70"
-                          color="white"
-                          indeterminate
-                  ></v-progress-circular>
-              </v-flex>
-          </v-layout>
-      </v-container>
+    <GChart
+      v-show="data.length > 0"
+      slot="header"
+      :type="type"
+      :data="data"
+      :options="options"
+    />
+    <v-container
+      v-show="data.length == 0"
+      slot="header"
+      bg
+      fill-height
+      grid-list-md
+      text-xs-center
+    >
+      <v-layout
+        row
+        wrap
+        align-center>
+        <v-flex>
+          <v-progress-circular
+            :width="4"
+            :size="70"
+            color="white"
+            indeterminate
+          />
+        </v-flex>
+      </v-layout>
+    </v-container>
 
     <slot />
 
@@ -44,6 +47,9 @@
 import { GChart } from 'vue-google-charts'
 
 export default {
+  components: {
+    GChart
+  },
   inheritAttrs: false,
 
   props: {
@@ -72,9 +78,6 @@ export default {
       required: true,
       validator: v => ['AreaChart', 'LineChart'].includes(v)
     }
-  },
-  components: {
-    GChart
   }
 }
 </script>
