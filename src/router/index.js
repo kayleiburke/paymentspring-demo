@@ -11,7 +11,6 @@ import Vue from 'vue'
 import VueAnalytics from 'vue-analytics'
 import Router from 'vue-router'
 import Meta from 'vue-meta'
-import VuexFlash from 'vuex-flash'
 
 // Views - Components
 import Dashboard from '@/views/Dashboard'
@@ -30,7 +29,6 @@ import Payment from '@/views/Payment'
 import Charts from '@/views/Charts'
 
 Vue.use(Router)
-Vue.use(VuexFlash, { mixin: true })
 
 // Create a new router
 const router = new Router({

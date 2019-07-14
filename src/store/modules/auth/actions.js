@@ -22,5 +22,15 @@ export default {
         .catch(error => error)
 
     commit(MutationTypes.LOGOUT)
+  },
+
+  register ({ commit }, data) {
+      commit('registrationInProgress', true)
+
+      return Vue.axios.post('/users', data)
+          .then(function(response) {
+              return response.data
+          })
+          .finally(() => commit('registrationInProgress', false))
   }
 }

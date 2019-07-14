@@ -1,6 +1,19 @@
 <template>
   <v-card-text class="text-center">
-    <h1>Login</h1>
+    <v-layout align-start justify-center row fill-height>
+      <v-flex>
+        <h1>
+          Login
+        </h1>
+      </v-flex>
+      <span text-sm-right>
+          <router-link to="/register">
+            <a
+                    :class="{disabled: loginInProgress}"
+            >Register</a>
+          </router-link>
+        </span>
+    </v-layout>
     <p class="text-muted">Sign In to your account</p>
     <flash-message variant="success"/>
     <flash-message variant="danger"/>
@@ -38,29 +51,18 @@
                     indeterminate
             ></v-progress-circular>
           </v-flex>
-          <v-flex
-                  sm6>
-            <v-btn
-                    color="success"
-                    round
-                    class="font-weight-light"
-                    :disabled="loginInProgress"
-                    type="submit"
-            >Login</v-btn>
-          </v-flex>
-         <!-- <v-flex
-                  sm6>
-            <router-link to="/register">
-              <v-btn
-                      color="purple"
-                      round
-                      class="font-weight-light"
-                      :disabled="loginInProgress"
-              >Register</v-btn>
-            </router-link>
-          </v-flex>-->
         </v-layout>
       </v-container>
+      <v-flex
+              sm12>
+        <v-btn
+                color="success"
+                round
+                class="font-weight-light"
+                :disabled="loginInProgress"
+                type="submit"
+        >Login</v-btn>
+      </v-flex>
     </v-form>
   </v-card-text>
 </template>

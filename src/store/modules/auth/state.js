@@ -4,5 +4,6 @@ export default {
     currentUser: localStorage.currentUser ? User.from(JSON.parse(localStorage.currentUser)) : User.from(localStorage.currentUser),
     token: localStorage.token,
     paymentspringApiKey: localStorage.paymentspringApiKey,
-    loginInProgress: false
+    loginInProgress: false,
+    registrationInProgress: false
 }
