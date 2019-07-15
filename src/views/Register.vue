@@ -18,13 +18,14 @@
     <flash-message variant="success"/>
     <flash-message variant="danger"/>
     <flash-message variant="warning"/>
-    <v-form @submit.prevent="register()">
+    <v-form ref="registrationForm" @submit.prevent="register()">
       <v-layout wrap>
         <v-flex xs6>
           <v-text-field
                   class="purple-input"
                   label="First Name"
                   v-model="registrationData.firstName"
+                  @input="isFormValid"
                   :disabled="registrationInProgress"
                   :rules="[rules.required, rules.notEmpty]"
           />
@@ -34,6 +35,7 @@
                   class="purple-input"
                   label="Last Name"
                   v-model="registrationData.lastName"
+                  @input="isFormValid"
                   :disabled="registrationInProgress"
                   :rules="[rules.required, rules.notEmpty]"
           />
@@ -43,6 +45,7 @@
                   class="purple-input"
                   label="Email"
                   v-model="registrationData.email"
+                  @input="isFormValid"
                   :disabled="registrationInProgress"
                   :rules="[rules.required, rules.notEmpty]"
           />
@@ -53,6 +56,7 @@
                   label="Password"
                   v-model="registrationData.password"
                   type="password"
+                  @input="isFormValid"
                   :disabled="registrationInProgress"
                   :rules="[rules.required, rules.notEmpty, rules.minLength, rules.hasLowercaseLetter, rules.hasUppercaseLetter, rules.hasNumber]"
           />
@@ -63,6 +67,7 @@
                   label="Password Confirmation"
                   v-model="registrationData.passwordConfirmation"
                   type="password"
+                  @input="isFormValid"
                   :disabled="registrationInProgress"
                   :rules="[rules.required, rules.passwordMatch]"
           />
@@ -129,25 +134,32 @@ export default {
     ...mapGetters('auth', ['currentUser', 'registrationInProgress'])
   },
   methods: {
-    register () {
-      this.error = ''
-
-      var formattedData = {
-        user: {
-          email: this.registrationData.email,
-          first_name: this.registrationData.firstName,
-          last_name: this.registrationData.lastName,
-          password: this.registrationData.password,
-          password_confirmation: this.registrationData.passwordConfirmation
-        }
-      }
-
-      this.$store.dispatch('auth/register', formattedData)
-              .then(function() {
-                this.$router.replace(this.$route.query.redirect || '/')
-              }.bind(this))
-              .catch(error => this.registrationFailed(error))
+    isFormValid () {
+      return this.$refs['registrationForm'].validate()
     },
+    
+    register () {
+      if (this.isFormValid()) {
+        this.error = ''
+
+        var formattedData = {
+          user: {
+            email: this.registrationData.email,
+            first_name: this.registrationData.firstName,
+            last_name: this.registrationData.lastName,
+            password: this.registrationData.password,
+            password_confirmation: this.registrationData.passwordConfirmation
+          }
+        }
+
+        this.$store.dispatch('auth/register', formattedData)
+                .then(function() {
+                  this.$router.replace(this.$route.query.redirect || '/')
+                }.bind(this))
+                .catch(error => this.registrationFailed(error))
+      }
+    },
+    
     registrationFailed (error) {
       this.error = 'Registration failed!'
 
