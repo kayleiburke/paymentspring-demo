@@ -29,6 +29,7 @@
     "vue-meta": "^1.5.2",
     "vue-moment": "^4.0.0",
     "vue-underscore": "^0.1.4",
+    "vuelidate": "^0.7.4",
     "vuetify": "^1.2.5",
     "vuetify-credit-card": "^1.0.0",
     "vuex-flash": "^1.0.0",

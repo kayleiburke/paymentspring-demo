@@ -47,7 +47,7 @@
                   v-model="registrationData.email"
                   @input="isFormValid"
                   :disabled="registrationInProgress"
-                  :rules="[rules.required, rules.notEmpty]"
+                  :rules="[rules.required, rules.notEmpty, rules.isEmail]"
           />
         </v-flex>
         <v-flex xs12>
@@ -105,6 +105,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { minLength, hasLowercaseLetter, hasUppercaseLetter, hasNumber } from '@/utils/passwordValidators'
+import { email } from 'vuelidate/lib/validators'
 
 export default {
   name: 'Register',
@@ -126,6 +127,7 @@ export default {
         hasUppercaseLetter: value => hasUppercaseLetter(value) || 'Password must contain an uppercase letter',
         hasLowercaseLetter: value => hasLowercaseLetter(value) || 'Password must contain a lowercase letter',
         hasNumber: value => hasNumber(value) || 'Password must contain a number',
+        isEmail: value => email(value) || 'Email is not valid',
         passwordMatch: value => this.registrationData.password == this.registrationData.passwordConfirmation || 'Password confirmation must match password'
       }
     }
