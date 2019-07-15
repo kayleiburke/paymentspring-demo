@@ -18,41 +18,43 @@
     <flash-message variant="success"/>
     <flash-message variant="danger"/>
     <flash-message variant="warning"/>
-    <v-form @submit.prevent="login()">
-      <v-container py-0>
-        <v-layout wrap>
-          <v-flex xs12>
-            <v-text-field
-                    class="purple-input"
-                    label="Email"
-                    v-model="loginData.email"
-            />
-          </v-flex>
-          <v-flex xs12>
-            <v-text-field
-                    class="purple-input"
-                    label="Password"
-                    v-model="loginData.password"
-                    type="password"
-            />
-          </v-flex>
-          <v-flex sm12 v-if="error">
-            <material-notification
-                    class="mb-3"
-                    color="error"
-            >
-              {{error}}
-            </material-notification>
-          </v-flex>
-          <v-flex sm12 v-if="loginInProgress">
-            <v-progress-circular
-                    :size="50"
-                    color="primary"
-                    indeterminate
-            ></v-progress-circular>
-          </v-flex>
-        </v-layout>
-      </v-container>
+    <v-form ref="loginForm" @submit.prevent="login()">
+      <v-layout wrap>
+        <v-flex xs12>
+          <v-text-field
+                  class="purple-input"
+                  label="Email"
+                  :rules="[rules.required, rules.notEmpty, rules.isEmail]"
+                  v-model="loginData.email"
+                  :disabled="loginInProgress"
+          />
+        </v-flex>
+        <v-flex xs12>
+          <v-text-field
+                  class="purple-input"
+                  label="Password"
+                  :rules="[rules.required, rules.notEmpty]"
+                  v-model="loginData.password"
+                  :disabled="loginInProgress"
+                  type="password"
+          />
+        </v-flex>
+        <v-flex sm12 v-if="error">
+          <material-notification
+                  class="mb-3"
+                  color="error"
+          >
+            {{error}}
+          </material-notification>
+        </v-flex>
+        <v-flex sm12 v-if="loginInProgress">
+          <v-progress-circular
+                  :size="50"
+                  color="primary"
+                  indeterminate
+          ></v-progress-circular>
+        </v-flex>
+      </v-layout>
       <v-flex
               sm12>
         <v-btn
@@ -69,6 +71,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { email } from 'vuelidate/lib/validators'
 
 export default {
   name: 'Login',
@@ -80,7 +83,12 @@ export default {
       },
       error: false,
       loginDisabled: false,
-      showProgressBar: false
+      showProgressBar: false,
+      rules: {
+        required: value => !!value || 'Field is required.',
+        notEmpty: value => value.replace(/\s/g, "") != "" || 'Field is required.',
+        isEmail: value => email(value) || 'Email is not valid'
+      }
     }
   },
   computed: {
@@ -93,19 +101,27 @@ export default {
     this.checkCurrentLogin()
   },
   methods: {
+    isFormValid () {
+      return this.$refs['loginForm'].validate()
+    },
+
     checkCurrentLogin () {
       if (this.currentUser) {
         this.$router.replace(this.$route.query.redirect || '/')
       }
     },
+
     login () {
-      this.error = ''
-      this.$store.dispatch('auth/login', this.loginData)
-        .then(function() {
-          this.$router.replace(this.$route.query.redirect || '/')
-        }.bind(this))
-        .catch(error => this.loginFailed(error))
+      if (this.isFormValid()) {
+        this.error = ''
+        this.$store.dispatch('auth/login', this.loginData)
+                .then(function () {
+                  this.$router.replace(this.$route.query.redirect || '/')
+                }.bind(this))
+                .catch(error => this.loginFailed(error))
+      }
     },
+
     loginFailed (error) {
       this.error = 'Login failed!'
 
