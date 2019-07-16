@@ -142,24 +142,26 @@ export default {
     
     register () {
       if (this.isFormValid()) {
-        this.error = ''
+        this.$recaptcha('login').then((token) => {
+          this.error = ''
 
-        var formattedData = {
-          user: {
-            email: this.registrationData.email,
-            first_name: this.registrationData.firstName,
-            last_name: this.registrationData.lastName,
-            password: this.registrationData.password,
-            password_confirmation: this.registrationData.passwordConfirmation
+          var formattedData = {
+            user: {
+              email: this.registrationData.email,
+              first_name: this.registrationData.firstName,
+              last_name: this.registrationData.lastName,
+              password: this.registrationData.password,
+              password_confirmation: this.registrationData.passwordConfirmation
+            }
           }
-        }
 
-        this.$store.dispatch('auth/register', formattedData)
-                .then(function(data) {
+          this.$store.dispatch('auth/register', formattedData)
+                  .then(function(data) {
                     this.flash({ message: data.message, variant: 'success' })
                     this.$router.replace(this.$route.query.redirect || '/')
-                }.bind(this))
-                .catch(error => this.registrationFailed(error))
+                  }.bind(this))
+                  .catch(error => this.registrationFailed(error))
+        })
       }
     },
     

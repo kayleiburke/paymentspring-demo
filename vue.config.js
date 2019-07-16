@@ -1,6 +1,17 @@
+var webpack = require('webpack')
+
 module.exports = {
   devServer: {
     disableHostCheck: true
   },
-  runtimeCompiler: true
+  runtimeCompiler: true,
+  configureWebpack: {
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env': {
+          'RECAPTCHA_SITE_KEY': JSON.stringify(process.env.RECAPTCHA_SITE_KEY)
+        }
+      })
+    ]
+  }
 }
