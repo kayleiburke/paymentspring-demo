@@ -12,6 +12,9 @@ Built using the [Vuetify Material Dashboard](https://www.creative-tim.com/produc
 
 ## Getting Started
 - Install Nodejs from [Nodejs Official Page](https://nodejs.org/en/)
+- Set up a [Google reCAPTCHA v3 site](https://www.google.com/recaptcha/intro/v3.html)
+- Create the following environment variables:
+    - RECAPTCHA_SITE_KEY: holds your Google reCAPTCHA v3 site key
 - Open your terminal
 - Navigate to the project
 - Run `npm install` or `yarn install` if you use [Yarn](https://yarnpkg.com/en/)
