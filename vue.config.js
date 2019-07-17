@@ -9,7 +9,8 @@ module.exports = {
     plugins: [
       new webpack.DefinePlugin({
         'process.env': {
-          'RECAPTCHA_SITE_KEY': JSON.stringify(process.env.RECAPTCHA_SITE_KEY)
+          'RECAPTCHA_SITE_KEY': JSON.stringify(process.env.RECAPTCHA_SITE_KEY),
+          'PAYMENTSPRING_GATEWAY_API_URL': JSON.stringify(process.env.PAYMENTSPRING_GATEWAY_API_URL)
         }
       })
     ]
