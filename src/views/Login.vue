@@ -39,7 +39,9 @@
                   type="password"
           />
         </v-flex>
-        <v-flex sm12 v-if="error">
+        <v-flex
+                sm12
+                v-for="error in errors" :key="error">
           <material-notification
                   class="mb-3"
                   color="error"
@@ -72,6 +74,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { email } from 'vuelidate/lib/validators'
+import { getErrorMessages } from "@/utils/errorHandlers"
 
 export default {
   name: 'Login',
@@ -81,7 +84,7 @@ export default {
         email: '',
         password: ''
       },
-      error: false,
+      errors: [],
       loginDisabled: false,
       showProgressBar: false,
       rules: {
@@ -92,7 +95,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('auth', ['currentUser', 'loginInProgress'])
+    ...mapGetters('auth', ['currentUser', 'loginInProgress'], 'verifyRecaptchaV3')
   },
   created () {
     this.checkCurrentLogin()
@@ -114,7 +117,7 @@ export default {
     login () {
       if (this.isFormValid()) {
         this.$recaptcha('login').then((token) => {
-          this.error = ''
+          this.errors = []
           this.$store.dispatch('auth/login', this.loginData)
                   .then(function () {
                     this.$router.replace(this.$route.query.redirect || '/')
@@ -125,17 +128,8 @@ export default {
     },
 
     loginFailed (error) {
-      this.error = 'Login failed!'
-
-      if (error.response && error.response.data) {
-        if (error.response.data.errors) {
-          this.error = error.response.data.errors
-        } else {
-          if (typeof error.response.data === 'string' || error.response.data instanceof String) {
-            this.error = error.response.data
-          }
-        }
-      }
+      var errorMessages = getErrorMessages(error)
+      this.errors = errorMessages.length > 0 ? errorMessages : ['Login failed!']
     }
   }
 }

@@ -72,7 +72,9 @@
                   :rules="[rules.required, rules.passwordMatch]"
           />
         </v-flex>
-        <v-flex sm12 v-if="error">
+        <v-flex
+                sm12
+                v-for="error in errors" :key="error">
           <material-notification
                   class="mb-3"
                   color="error"
@@ -106,6 +108,7 @@
 import { mapGetters } from 'vuex'
 import { minLength, hasLowercaseLetter, hasUppercaseLetter, hasNumber } from '@/utils/passwordValidators'
 import { email } from 'vuelidate/lib/validators'
+import { getErrorMessages } from "@/utils/errorHandlers"
 
 export default {
   name: 'Register',
@@ -118,7 +121,7 @@ export default {
         password: '',
         passwordConfirmation: ''
       },
-      error: false,
+      errors: [],
       showProgressBar: false,
       rules: {
         required: value => !!value || 'Field is required.',
@@ -143,7 +146,7 @@ export default {
     register () {
       if (this.isFormValid()) {
         this.$recaptcha('login').then((token) => {
-          this.error = ''
+          this.errors = []
 
           var formattedData = {
             user: {
@@ -166,17 +169,8 @@ export default {
     },
     
     registrationFailed (error) {
-      this.error = 'Registration failed!'
-
-      if (error.response && error.response.data) {
-        if (error.response.data.errors) {
-          this.error = error.response.data.errors
-        } else {
-          if (typeof error.response.data === 'string' || error.response.data instanceof String) {
-            this.error = error.response.data
-          }
-        }
-      }
+      var errorMessages = getErrorMessages(error)
+      this.errors = errorMessages.length > 0 ? errorMessages : ['Registration failed!']
     }
   }
 }

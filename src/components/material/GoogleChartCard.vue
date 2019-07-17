@@ -23,13 +23,18 @@
         row
         wrap
         align-center>
-        <v-flex>
+        <v-flex
+          v-show="data.length == 0 && errors.length == 0">
           <v-progress-circular
             :width="4"
             :size="70"
             color="white"
             indeterminate
           />
+        </v-flex>
+        <v-flex
+          v-show="errors.length > 0">
+          <span>Data could not be loaded</span>
         </v-flex>
       </v-layout>
     </v-container>
@@ -77,7 +82,11 @@ export default {
       type: String,
       required: true,
       validator: v => ['AreaChart', 'LineChart'].includes(v)
-    }
+    },
+    errors: {
+      type: Array,
+      default: () => ([])
+    },
   }
 }
 </script>

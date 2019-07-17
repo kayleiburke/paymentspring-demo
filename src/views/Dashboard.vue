@@ -13,6 +13,7 @@
         <material-google-chart-card
           :data="donationsChart.data"
           :options="donationsChart.options"
+          :errors="donationsChart.errors"
           color="info"
           type="AreaChart"
         >
@@ -70,6 +71,8 @@
 </template>
 
 <script>
+import { getErrorMessages } from "@/utils/errorHandlers"
+
 export default {
   data () {
     return {
@@ -130,7 +133,8 @@ export default {
             fontName: 'Roboto,sans-serif'
           },
           pointsVisible: true
-        }
+        },
+        errors: []
       }
     }
   },
@@ -148,10 +152,10 @@ export default {
               this.donationCount = response.data.count
               this.timespan = response.data.timespan
             }
-          } else if (response.data.errors) {
           }
         }.bind(this)).catch(function (error) {
-        })
+          this.donationsChart.errors = getErrorMessages(error)
+        }.bind(this))
     }
   }
 }
