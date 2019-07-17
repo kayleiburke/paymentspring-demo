@@ -15,6 +15,7 @@ Built using the [Vuetify Material Dashboard](https://www.creative-tim.com/produc
 - Set up a [Google reCAPTCHA v3 site](https://www.google.com/recaptcha/intro/v3.html)
 - Create the following environment variables:
     - RECAPTCHA_SITE_KEY: holds your Google reCAPTCHA v3 site key
+    - PAYMENTSPRING_GATEWAY_API_URL _(optional)_: the URL of the API.  This is only necessary if the [API](https://github.com/kayleiburke/PaymentSpringGateway) is running locally.
 - Open your terminal
 - Navigate to the project
 - Run `npm install` or `yarn install` if you use [Yarn](https://yarnpkg.com/en/)
