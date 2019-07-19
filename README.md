@@ -31,6 +31,3 @@ A default user has been created on the Heroku-based API called by this app (http
 
 - **Username:**  kaylei.burke@gmail.com
 - **Password:** \*paymentspring*
-
-## Configuring the API
-The path to the API is specified in `/src/backend/vue-axios/axios.js`.  This path can be changed for development purposes.
