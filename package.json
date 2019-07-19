@@ -17,6 +17,7 @@
     "jquery": "^3.4.1",
     "node-sass": "^4.9.3",
     "payment": "^2.3.0",
+    "recaptcha-v3": "^1.5.0",
     "sass-loader": "^7.1.0",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.4",

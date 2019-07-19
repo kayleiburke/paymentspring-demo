@@ -116,14 +116,12 @@ export default {
 
     login () {
       if (this.isFormValid()) {
-        this.$recaptcha('login').then((token) => {
-          this.errors = []
-          this.$store.dispatch('auth/login', this.loginData)
-                  .then(function () {
-                    this.$router.replace(this.$route.query.redirect || '/')
-                  }.bind(this))
-                  .catch(error => this.loginFailed(error))
-        })
+        this.errors = []
+        this.$store.dispatch('auth/login', this.loginData)
+                .then(function () {
+                  this.$router.replace(this.$route.query.redirect || '/')
+                }.bind(this))
+                .catch(error => this.loginFailed(error))
       }
     },
 

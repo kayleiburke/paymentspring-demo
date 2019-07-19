@@ -2,18 +2,20 @@ import * as MutationTypes from './mutation-types'
 import Vue from 'vue'
 
 export default {
-  login ({ commit }, data) {
+  login ({ commit, dispatch }, data) {
     commit('loginInProgress', true)
-    var headers = {
-      'Authorization': 'Basic ' + btoa(data.email + ':' + data.password)
-    }
 
-    return Vue.axios.post('/users/sign_in', {}, { headers: headers })
-        .then(function(response) {
-          commit(MutationTypes.LOGIN, response.data)
-          return response.data
-        })
-        .finally(() => commit('loginInProgress', false))
+    dispatch('verifyRecaptchaV3', { action: 'login' }, {root:true}).then(function(token) {
+        var headers = {
+            'Authorization': 'Basic ' + btoa(data.email + ':' + data.password)
+        }
+
+        return Vue.axios.post('/users/sign_in', {}, { headers: headers })
+            .then(function(response) {
+                commit(MutationTypes.LOGIN, response.data)
+                return response.data
+            })
+    }).finally(() => commit('loginInProgress', false))
   },
 
   logout ({ state, commit }) {
@@ -24,13 +26,14 @@ export default {
     commit(MutationTypes.LOGOUT)
   },
 
-  register ({ commit }, data) {
+  register ({ commit, dispatch }, data) {
       commit('registrationInProgress', true)
 
-      return Vue.axios.post('/users', data)
-          .then(function(response) {
-              return response.data
-          })
-          .finally(() => commit('registrationInProgress', false))
+      return dispatch('verifyRecaptchaV3', { action: 'register' }, {root:true}).then(function(token) {
+          return Vue.axios.post('/users', data)
+              .then(function (response) {
+                  return response.data
+              })
+      }).finally(() => commit('registrationInProgress', false))
   }
 }
