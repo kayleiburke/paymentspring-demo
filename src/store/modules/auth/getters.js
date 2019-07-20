@@ -4,5 +4,6 @@ export default {
     token: state => state.token,
     paymentspringApiKey: state => state.paymentspringApiKey,
     loginInProgress: state => state.loginInProgress,
-    registrationInProgress: state => state.registrationInProgress
+    registrationInProgress: state => state.registrationInProgress,
+    confirmationInProgress: state => state.confirmationInProgress
 }
