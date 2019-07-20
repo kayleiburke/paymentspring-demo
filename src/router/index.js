@@ -17,6 +17,7 @@ import Dashboard from '@/views/Dashboard'
 import Full from '@/views/Full'
 import Icons from '@/views/Icons'
 import Login from '@/views/Login'
+import Confirmation from '@/components/helper/Confirmation'
 import Register from '@/views/Register'
 import Inauthenticated from '@/views/Inauthenticated'
 import Maps from '@/views/Maps'
@@ -48,6 +49,11 @@ const router = new Router({
           path: '/register',
           name: 'Register',
           component: Register
+        },
+        {
+          path: '/confirmation',
+          name: 'Confirmation',
+          component: Confirmation
         }
       ]
     },

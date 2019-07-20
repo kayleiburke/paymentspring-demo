@@ -22,5 +22,6 @@ export default {
         state.paymentspringApiKey = null
     },
     loginInProgress: set('loginInProgress'),
-    registrationInProgress: set('registrationInProgress')
+    registrationInProgress: set('registrationInProgress'),
+    confirmationInProgress: set('confirmationInProgress')
 }

@@ -35,5 +35,14 @@ export default {
                   return response.data
               })
       }).finally(() => commit('registrationInProgress', false))
+  },
+
+  confirm ({ commit, dispatch }, data) {
+      commit('confirmationInProgress', true)
+
+      return Vue.axios.get('/users/confirmation', { params: data })
+          .then(function (response) {
+              return response.data
+          }).finally(() => commit('confirmationInProgress', false))
   }
 }

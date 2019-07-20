@@ -5,5 +5,6 @@ export default {
     token: localStorage.token,
     paymentspringApiKey: localStorage.paymentspringApiKey,
     loginInProgress: false,
-    registrationInProgress: false
+    registrationInProgress: false,
+    confirmationInProgress: false
 }

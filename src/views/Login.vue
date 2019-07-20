@@ -16,7 +16,7 @@
     </v-layout>
     <p class="text-muted">Sign In to your account</p>
     <flash-message variant="success"/>
-    <flash-message variant="danger"/>
+    <flash-message variant="error"/>
     <flash-message variant="warning"/>
     <v-form ref="loginForm" @submit.prevent="login()">
       <v-layout wrap>
@@ -95,7 +95,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('auth', ['currentUser', 'loginInProgress'], 'verifyRecaptchaV3')
+    ...mapGetters('auth', ['currentUser', 'loginInProgress'])
   },
   created () {
     this.checkCurrentLogin()

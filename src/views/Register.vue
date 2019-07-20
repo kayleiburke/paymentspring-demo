@@ -16,7 +16,7 @@
     </v-layout>
     <p class="text-muted">Register for an account</p>
     <flash-message variant="success"/>
-    <flash-message variant="danger"/>
+    <flash-message variant="error"/>
     <flash-message variant="warning"/>
     <v-form ref="registrationForm" @submit.prevent="register()">
       <v-layout wrap>
