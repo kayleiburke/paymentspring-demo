@@ -39,6 +39,9 @@ const router = new Router({
       path: '/login',
       redirect: '/login',
       component: Inauthenticated,
+      meta: {
+        guest: true
+      },
       children: [
         {
           path: '/login',
@@ -61,9 +64,13 @@ const router = new Router({
       path: '/',
       redirect: '/dashboard',
       component: Full,
+      meta: {
+        requiresAuth: true
+      },
       children: [
         {
           path: 'dashboard',
+          name: 'Dashboard',
           // Relative to /src/views
           component: Dashboard
         },
@@ -137,5 +144,39 @@ if (process.env.GOOGLE_ANALYTICS) {
     }
   })
 }
+
+// prevent access to authenticated pages if the user is not logged in
+// adapted from https://scotch.io/tutorials/vue-authentication-and-route-handling-using-vue-router
+router.beforeEach((to, from, next) => {
+  if(to.matched.some(record => record.meta.requiresAuth)) {
+    if (localStorage.currentUser == null) {
+      next({
+        path: '/login',
+        params: { nextUrl: to.fullPath }
+      })
+    } else {
+      let user = JSON.parse(localStorage.currentUser)
+      if(to.matched.some(record => record.meta.admin)) {
+        if(user.admin == 1){
+          next()
+        }
+        else{
+          next({ name: 'Dashboard'})
+        }
+      }else {
+        next()
+      }
+    }
+  } else if(to.matched.some(record => record.meta.guest)) {
+    if(localStorage.currentUser == null){
+      next()
+    }
+    else{
+      next({ name: 'Dashboard'})
+    }
+  }else {
+    next()
+  }
+})
 
 export default router
