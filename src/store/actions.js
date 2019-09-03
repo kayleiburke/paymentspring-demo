@@ -13,7 +13,8 @@ export default {
 
     async verifyRecaptchaV3 (data) {
         const recaptcha = await load(process.env.RECAPTCHA_SITE_KEY)
-        return recaptcha.execute(data.action)
-        // TODO: add call to back end to verify token returned by recaptcha login
+        return recaptcha.execute(data.action).then(token => {
+            return Vue.axios.post('/api/v1/recaptchas/verify', { token: token })
+        })
     }
 }

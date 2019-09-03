@@ -158,10 +158,10 @@ export default {
         }
 
         this.$store.dispatch('auth/register', formattedData)
-                .then(function(data) {
+                .then(data => {
                   this.flash({ message: data.message, variant: 'success' })
                   this.$router.replace(this.$route.query.redirect || '/')
-                }.bind(this))
+                })
                 .catch(error => this.registrationFailed(error))
       }
     },

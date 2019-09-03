@@ -118,9 +118,9 @@ export default {
       if (this.isFormValid()) {
         this.errors = []
         this.$store.dispatch('auth/login', this.loginData)
-                .then(function () {
+                .then(() => {
                   this.$router.replace(this.$route.query.redirect || '/')
-                }.bind(this))
+                })
                 .catch(error => this.loginFailed(error))
       }
     },
