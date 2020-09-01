@@ -1,4 +1,4 @@
-# PaymentSpring Gateway Portal
+# Sample Authenticated Donation Site - Front End
 
 This site is the front end portion of a small project built to showcase some web development skills. It is an authenticated portal built on top of a Vuetify theme that allows users to make sample payments (through the "Make a Donation" page).  It uses PaymentSpring as a payment processing system. This means that anyone running this project locally can sign in to their PaymentSpring account and see the sample payments that were made through this site. The code for the API is found [here](https://github.com/kayleiburke/PaymentSpringGateway). Please see the [API page](https://github.com/kayleiburke/PaymentSpringGateway) for instructions on setting up a free PaymentSpring account and associating it with this project.
 
