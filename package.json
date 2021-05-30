@@ -9,6 +9,9 @@
     "lint": "vue-cli-service lint",
     "start": "node server.js"
   },
+  "engines": {
+    "node": "14.17.0"
+  },
   "dependencies": {
     "card": "^2.4.0",
     "chartist": "0.11.0",
