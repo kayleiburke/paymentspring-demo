@@ -96,6 +96,9 @@
                 )
             }.bind(this))
         },
+        created: function() {
+            this.$parent.$on('autoPopulate', this.autoPopulate);
+        },
         data () {
             return {
                 cardDetail: {
@@ -107,6 +110,17 @@
             }
         },
         methods: {
+            autoPopulate() {
+                console.log('we got here')
+                this.cardDetail = {
+                    number: '4111111111111111',
+                        name: 'Comprador T Cielo',
+                        expiry: '12/2022',
+                        cvc: '123'
+                }
+                this.onChange()
+            },
+
             onChange() {
                 this.updateData(this.cardDetail)
                 this.setIsFormValid({ formName: this.formName, isFormValid: this.isFormValid() })

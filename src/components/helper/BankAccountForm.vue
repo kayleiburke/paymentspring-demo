@@ -76,6 +76,9 @@
                 required: true
             }
         },
+        created: function() {
+            this.$parent.$on('autoPopulate', this.autoPopulate);
+        },
         data () {
             return {
                 isBankAccountFormValid: false,
@@ -121,6 +124,16 @@
             }
         },
         methods: {
+            autoPopulate() {
+                this.bankDetail = {
+                    routingNumber: '100004058',
+                    accountNumber: '1234567890',
+                    firstName: 'Grace',
+                    lastName: 'Hopper',
+                    accountType: 'Checking'
+                }
+            },
+
             onChange(data) {
                 this.updateData(this.bankDetail)
                 this.setIsFormValid({ formName: this.formName, isFormValid: this.isFormValid() })

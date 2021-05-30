@@ -57,8 +57,7 @@
           ></v-progress-circular>
         </v-flex>
       </v-layout>
-      <v-flex
-              sm12>
+      <v-flex sm12>
         <v-btn
                 color="success"
                 round
@@ -66,6 +65,13 @@
                 :disabled="loginInProgress"
                 type="submit"
         >Login</v-btn>
+        <v-btn
+                color="purple"
+                round
+                class="font-weight-light pull-right"
+                :disabled="loginInProgress"
+                @click="autoPopulate"
+        >Try Me!</v-btn>
       </v-flex>
     </v-form>
   </v-card-text>
@@ -111,6 +117,13 @@ export default {
     checkCurrentLogin () {
       if (this.currentUser) {
         this.$router.replace(this.$route.query.redirect || '/')
+      }
+    },
+
+    autoPopulate () {
+      this.loginData = {
+        email: "kaylei.burke@gmail.com",
+        password: "*paymentspring*"
       }
     },
 

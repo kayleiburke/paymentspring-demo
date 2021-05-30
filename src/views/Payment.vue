@@ -78,7 +78,12 @@
                   </v-container>
 
                   <v-btn
-                    color="primary"
+                          color="blue"
+                          @click="autoPopulateData(step)">
+                    Try Me!
+                  </v-btn>
+                  <v-btn
+                    color="purple"
                     @click="incrementStep(step)">
                     Continue
                   </v-btn>
@@ -128,6 +133,11 @@
                     flat
                     color="primary"
                     @click.native="step = 1">Previous</v-btn>
+                  <v-btn
+                          color="blue"
+                          @click="autoPopulateData(step)">
+                    Try Me!
+                  </v-btn>
                   <v-btn
                     color="primary"
                     @click="incrementStep(step)">
@@ -180,6 +190,11 @@
                   flat
                   color="primary"
                   @click.native="step = 2">Previous</v-btn>
+                <v-btn
+                        color="blue"
+                        @click="autoPopulateData(step)">
+                  Try Me!
+                </v-btn>
                 <v-btn
                   :disabled="showProgressBar"
                   color="primary"
@@ -243,7 +258,7 @@ export default {
     cardDetail: {
       number: '4532117080573700',
       name: 'Comprador T Cielo',
-      expiry: '12/2018',
+      expiry: '12/2022',
       cvc: '123'
     },
     billingInfo: {
@@ -268,10 +283,18 @@ export default {
       greaterThanZero: v => v > 0 || 'Must be greater than 0'
     }
   }),
+  created: function() {
+    this.$on('autoPopulate', this.autoPopulate);
+  },
   computed: {
     ...mapGetters('auth', ['currentUser', 'paymentspringApiKey'])
   },
   methods: {
+    autoPopulate() {
+      this.amount = 1500
+      this.description = "This is a test transaction."
+    },
+
     incrementStep (step) {
       this.$refs['form' + step].validate()
       this.formErrors['form' + step] = null
@@ -282,6 +305,14 @@ export default {
         }
       } else {
         this.formErrors['form' + step] = 'Please enter valid data before continuing'
+      }
+    },
+
+    autoPopulateData (step) {
+      if (step == 1) {
+        this.autoPopulate()
+      } else {
+        this.$refs['form' + step].$emit('autoPopulate')
       }
     },
 
