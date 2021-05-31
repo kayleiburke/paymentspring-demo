@@ -41,7 +41,6 @@
       >
         <material-stats-card
           :value="totalDonations | currency({symbol: '$', thousandsSeparator: ',', fractionCount: 2, fractionSeparator: '.'})"
-          :sub-text=""
           color="green"
           icon="mdi-currency-usd"
           title="Total Donations"
