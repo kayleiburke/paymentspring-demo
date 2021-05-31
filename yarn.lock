@@ -9299,10 +9299,9 @@ vue-cli@^2.9.6:
     user-home "^2.0.0"
     validate-npm-package-name "^3.0.0"
 
-vue-credit-card@0.0.11:
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/vue-credit-card/-/vue-credit-card-0.0.11.tgz#0e2a8aeef262a5e0678de00054fdc1a07b7a823c"
-  integrity sha1-DiqK7vJipeBnjeAAVP3BoHt6gjw=
+"vue-credit-card@github:kayleiburke/vue-credit-card":
+  version "0.0.7"
+  resolved "https://codeload.github.com/kayleiburke/vue-credit-card/tar.gz/072cdf900083f8bad591564bb877d51c399a47f8"
   dependencies:
     bourbon "^4.2.7"
     payment "^2.1.4"
