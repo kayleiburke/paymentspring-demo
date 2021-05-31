@@ -69,7 +69,7 @@
                 color="purple"
                 round
                 class="font-weight-light pull-right"
-                :disabled="loginInProgress"
+                :disabled="loginInProgress || hasTryMeBeenClicked()"
                 @click="autoPopulate"
         >Try Me!</v-btn>
       </v-flex>
@@ -81,6 +81,7 @@
 import { mapGetters } from 'vuex'
 import { email } from 'vuelidate/lib/validators'
 import { getErrorMessages } from "@/utils/errorHandlers"
+import {_} from 'vue-underscore'
 
 export default {
   name: 'Login',
@@ -89,6 +90,10 @@ export default {
       loginData: {
         email: '',
         password: ''
+      },
+      sampleLoginData: {
+        email: "kaylei.burke@gmail.com",
+        password: "*paymentspring*"
       },
       errors: [],
       loginDisabled: false,
@@ -110,6 +115,10 @@ export default {
     this.checkCurrentLogin()
   },
   methods: {
+    hasTryMeBeenClicked () {
+      return JSON.stringify(this.sampleLoginData) === JSON.stringify(this.loginData)
+    },
+
     isFormValid () {
       return this.$refs['loginForm'].validate()
     },
@@ -121,10 +130,7 @@ export default {
     },
 
     autoPopulate () {
-      this.loginData = {
-        email: "kaylei.burke@gmail.com",
-        password: "*paymentspring*"
-      }
+      this.loginData = _.clone(this.sampleLoginData)
     },
 
     login () {
