@@ -134,7 +134,10 @@ export default {
                 .then(() => {
                   this.$router.replace(this.$route.query.redirect || '/')
                 })
-                .catch(error => this.loginFailed(error))
+                .catch(error => {
+                  console.log(error)
+                  this.loginFailed(error)
+                })
       }
     },
 

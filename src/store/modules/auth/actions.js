@@ -5,7 +5,7 @@ export default {
   login ({ commit, dispatch }, data) {
     commit('loginInProgress', true)
 
-    dispatch('verifyRecaptchaV3', { action: 'login' }, {root:true}).then(function(token) {
+    return dispatch('verifyRecaptchaV3', { action: 'login' }, {root:true}).then(function(token) {
         var headers = {
             'Authorization': 'Basic ' + btoa(data.email + ':' + data.password)
         }
