@@ -5,7 +5,7 @@
       <div
               slot="header"
       >
-        <div class="title font-weight-light mb-2">Donations</div>
+        <div class="title font-weight-light mb-2">Mock Donations</div>
       </div>
 
       <v-card-text>

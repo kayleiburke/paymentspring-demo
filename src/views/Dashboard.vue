@@ -61,7 +61,7 @@
             round
           >
             <v-icon left>mdi-home-currency-usd</v-icon>
-            <span>Make a Donation!</span>
+            <span>Make a Mock Donation!</span>
           </v-btn>
         </router-link>
       </v-flex>
