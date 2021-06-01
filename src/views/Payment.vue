@@ -211,6 +211,19 @@
             class="text-center">
             Payment successful
           </v-card-text>
+          <v-flex sm12 justify-center v-if="paymentSuccessful">
+            <router-link to="/">
+              <v-btn
+                      large
+                      class="mx-0 font-weight-light"
+                      color="purple"
+                      round
+              >
+                <v-icon left>mdi-home-currency-usd</v-icon>
+                <span>Dashboard</span>
+              </v-btn>
+            </router-link>
+          </v-flex>
         </material-card>
 
       </v-flex>
@@ -328,11 +341,11 @@ export default {
 
       this.incrementStep(3)
       if (this.formsValid.form3) {
-        this.getPaymentSpringToken()
+        this.getPaymentChartDatapringToken()
       }
     },
 
-    getPaymentSpringToken () {
+    getPaymentChartDatapringToken () {
       this.showProgressBar = true
 
       var paymentData = {

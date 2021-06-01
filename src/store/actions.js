@@ -7,8 +7,12 @@ export default {
         return Vue.axios.post('/api/v1/payments', data, { headers: getHeaders(state) })
     },
 
-    getPayments ({ commit, state }) {
-        return Vue.axios.get('/api/v1/payments', { headers: getHeaders(state) })
+    getPayments ({ commit, state }, data) {
+        return Vue.axios.get('/api/v1/payments', { headers: getHeaders(state), params: { page: data.page, per_page: data.per_page } })
+    },
+
+    getPaymentChartData ({ commit, state }) {
+        return Vue.axios.get('/api/v1/payments/chart_data', { headers: getHeaders(state) })
     },
 
     async verifyRecaptchaV3 (data) {

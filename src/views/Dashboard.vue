@@ -65,6 +65,7 @@
           </v-btn>
         </router-link>
       </v-flex>
+      <helper-donation-list></helper-donation-list>
     </v-layout>
   </v-container>
 </template>
@@ -142,7 +143,7 @@ export default {
   },
   methods: {
     getDonations () {
-      this.$store.dispatch('getPayments')
+      this.$store.dispatch('getPaymentChartData')
         .then(function (response) {
           if (response.data) {
             if (response.data.list) {
