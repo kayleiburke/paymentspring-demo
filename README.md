@@ -23,6 +23,6 @@ You can also run additional npm tasks such as
 - `npm run lint` to run linting.
 
 ## Login
-A default user has been created on the Heroku-based API called by this app (https://whispering-cove-68110.herokuapp.com).  Click the "Try Me!" button on the login screen to login with this user.
+A default user has been created on the [Heroku-based API](https://whispering-cove-68110.herokuapp.com) called by this app.  Click the "Try Me!" button on the [login screen](https://payment-spring-demo.herokuapp.com) to login with this user.
 
 <img width="604" alt="Screen Shot 2021-06-01 at 1 24 29 PM" src="https://user-images.githubusercontent.com/4614468/120372365-baf2cc80-c2dc-11eb-9226-acb1a5517a86.png">
