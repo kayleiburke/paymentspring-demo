@@ -83,7 +83,7 @@ export default {
         icon: 'mdi-currency-usd',
         text: 'Make a Donation'
       },
-      {
+      /*{
         to: '/user-profile',
         icon: 'mdi-account',
         text: 'Sample User Profile'
@@ -92,7 +92,7 @@ export default {
         to: '/charts',
         icon: 'mdi-chart-bar',
         text: 'Sample Charts'
-      }/*,
+      }*//*,
       {
         to: '/table-list',
         icon: 'mdi-clipboard-outline',
