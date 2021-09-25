@@ -1,4 +1,5 @@
 var webpack = require('webpack')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   devServer: {
@@ -13,6 +14,10 @@ module.exports = {
           'PAYMENTSPRING_GATEWAY_API_URL': process.env.PAYMENTSPRING_GATEWAY_API_URL ? JSON.stringify(process.env.PAYMENTSPRING_GATEWAY_API_URL) : 'https://whispering-cove-68110.herokuapp.com'
         }
       })
-    ]
+    ],
+    optimization: {
+      minimize: true,
+      minimizer: [new UglifyJsPlugin()],
+    }
   }
 }
